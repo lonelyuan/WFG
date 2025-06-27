@@ -1,0 +1,6 @@
+{
+    "framework_patterns": {
+        "request_mapping": r"@RequestMapping\s*\([^)]*\)",
+        "method_mapping": r"@(Get|Post|Put|Delete)Mapping\s*\([^)]*\)"
+    }
+}
