@@ -3,7 +3,7 @@ from pocketflow import Node
 from Util.logger import get_logger
 
 from SA.core.models import APIInfo, AnalysisResult, SummaryResult
-from Util.config import PromptCrafter
+from Util.prompts.prompt_craft import PromptCrafter
 from Util.llm_api import call_llm
 
 
@@ -26,3 +26,11 @@ class SummaryGenerationNode(Node):
         analysis_results = prep_data["api_analysis"]
         
         self.logger.info(f"生成分析摘要 - API总数: {len(apis)}")
+
+    def post(self, shared, prep_res, exec_res):
+        if exec_res["status"] == "complete":
+            shared["final_summary"] = exec_res["summary"]
+            return "summary_complete" 
+        else:
+            shared["request_for_more_info"] = exec_res["request"]
+            return "needs_more_info"

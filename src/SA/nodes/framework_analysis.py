@@ -1,9 +1,11 @@
 from pathlib import Path
 from typing import Dict, Any
+import json
 from pocketflow import Node
 from Util.logger import get_logger
 from ..core.models import ProjectInfo, FileInfo
 from ..tools.project_detect import detect_project_type
+from dataclasses import asdict
 
 def scan_directory(base_path: Path):
     """扫描目录并输出文本文件的绝对路径和行数"""
@@ -13,17 +15,18 @@ def scan_directory(base_path: Path):
             continue
         if path.is_file():
             size = path.stat().st_size
-            res.append(FileInfo(path=str(path), size=size, file_type=path.suffix))
+            if path.suffix in [".java", ".py", ".js", ".ts", ".php", ".cs", ".go", ".rb", ".swift", ".kt"]:
+                res.append(FileInfo(path=str(path), size=size, file_type=path.suffix))
     return res
 
-class ProjectAnalysisNode(Node):
-    """项目分析节点 - 解析项目结构和元信息"""
+class FrameWorkAnalysisNode(Node):
+    """框架分析节点 - 解析项目框架类型等元信息"""
     def __init__(self):
         super().__init__()
-        self.logger = get_logger("SA.ProjectAnalysis")
+        self.logger = get_logger("SA.FrameWorkAnalysis")
         
     def prep(self, shared: Dict[str, Any]) -> str:
-        project_path = shared["project_path"]
+        project_path = shared["project_info"].root_path
         self.logger.info(f"Preparing to analyze project: {project_path}")
         return project_path
     
@@ -50,3 +53,5 @@ class ProjectAnalysisNode(Node):
 
     def post(self, shared, prep_res, exec_res):
         shared["project_info"] = exec_res
+        with open(shared["session_dir"] / "framework_analysis.json", "w", encoding="utf-8") as f:
+            json.dump(asdict(exec_res), f, ensure_ascii=False, indent=4)

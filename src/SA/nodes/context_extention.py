@@ -3,7 +3,7 @@ from typing import List, Dict, Any
 from pocketflow import Node
 
 from SA.core.models import APIInfo, AnalysisResult, AnalysisStatus, ProjectInfo
-from Util.config import PromptCrafter
+from Util.prompts.prompt_craft import PromptCrafter
 from Util.llm_api import call_llm
 from Util.logger import get_logger
 from ..tools.code_slicer import slice_code
@@ -22,7 +22,7 @@ class ContextExtentionNode(Node):
     
     def exec(self, prep_res: tuple[List[APIInfo], ProjectInfo]) -> List[AnalysisResult]:
         apis,  project_info = prep_res
-        prompt_template = PromptCrafter("APIAnalysis/cn.json", "all")
+        prompt_template = PromptCrafter("SA/cn.json", "all")
         analysis_results = []
         for i, api in enumerate(apis):
             self.logger.info(f"API {i+1}/{len(apis)}: {api.req.path}")
@@ -34,7 +34,7 @@ class ContextExtentionNode(Node):
             prompt_params = {
                 "PROJECT_TYPE":project_info.project_type,
                 "FUNCTION":slice_code(project_info.root_path,api.code_pos),
-                "CONTEXT_INFO":project_info.files,
+                # "CONTEXT_INFO":project_info.files,
             }
             prompt = prompt_template.craft_prompt(prompt_params)
             self.logger.info(f"prompt: {prompt}")

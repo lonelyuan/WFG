@@ -1,14 +1,8 @@
-"""
-SA阶段流程编排
-"""
-
-from pathlib import Path
 from pocketflow import Flow
-from regex import P
 from Util.logger import get_logger, get_session_dir
-
+from .core.models import ProjectInfo
 from .nodes import (
-    ProjectAnalysisNode,
+    FrameWorkAnalysisNode,
     APIExtractionNode, 
     ContextExtentionNode,
     SummaryGenerationNode
@@ -17,35 +11,26 @@ from .nodes import (
 
 def create_sa_flow() -> Flow:
     # 创建节点实例
-    project_analysis = ProjectAnalysisNode()
+    framework_analysis = FrameWorkAnalysisNode()
     api_extraction = APIExtractionNode()
     context_extention = ContextExtentionNode()
     summary_generation = SummaryGenerationNode()
     # 构建流程图
-    flow = project_analysis >> api_extraction >> context_extention >> summary_generation
+    f1 = framework_analysis >> api_extraction >> context_extention >> summary_generation
+    f2 = summary_generation - "needs_more_info" >> context_extention
     # 创建流程
-    flow = Flow(start=project_analysis)
+    flow = Flow(start=framework_analysis)
     return flow
 
 
 def run_sa_analysis(project_path: str) -> dict:
-    """
-    运行SA静态分析
-    
-    Args:
-        project_path: 项目路径
-        
-    Returns:
-        dict: 分析结果
-    """
     logger = get_logger("SA.Flow")
     session_dir = get_session_dir()
     logger.info(f"Starting SA analysis for {project_path} at {session_dir}".center(50, "="))
+    project_info = ProjectInfo(root_path=project_path, project_type="", files=[])
     shared = {
-        "project_path": str(Path(project_path).absolute()),
-        "project_info": None,
+        "project_info": project_info,
         "apis": [],
-        "api_count": 0,
         "api_analysis": [],
         "final_summary": None,
         "session_dir": session_dir

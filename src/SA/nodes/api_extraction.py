@@ -17,7 +17,7 @@ class APIExtractionNode(Node):
         
     def prep(self, shared: Dict[str, Any]):
         project_info = shared["project_info"]
-        project_path = shared["project_path"]
+        project_path = project_info.root_path
         session_dir = shared["session_dir"]
 
         if "Java" in str(project_info.project_type):
