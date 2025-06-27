@@ -17,7 +17,7 @@ def scan_directory(base_path: Path):
     return res
 
 class ProjectAnalysisNode(Node):
-    """项目分析节点 - 负责解析项目结构和元信息"""
+    """项目分析节点 - 解析项目结构和元信息"""
     def __init__(self):
         super().__init__()
         self.logger = get_logger("SA.ProjectAnalysis")

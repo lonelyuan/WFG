@@ -1,7 +1,6 @@
 from .interfaces import Parser, SymbolResolver, ContextExtender
 from .models import (
-    ProjectInfo, FileInfo, 
-    APIInfo, Parameter,
+    ProjectInfo, FileInfo, APIInfo,
     AnalysisResult, SummaryResult
 )
 """
@@ -9,7 +8,6 @@ from .models import (
 """
 __all__ = [
     'Parser', 'SymbolResolver', 'ContextExtender',
-    'ProjectInfo', 'FileInfo',
-    'APIInfo', 'Parameter', 
+    'ProjectInfo', 'FileInfo', 'APIInfo', 
     'AnalysisResult', 'SummaryResult',
 ] 

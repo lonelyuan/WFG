@@ -5,7 +5,7 @@ from pocketflow import Node
 from SA.tools.code_slicer import slice_code
 from Util.logger import get_logger
 
-from ..core.models import APIInfo, ProjectInfo, HTTPRequest
+from ..core.models import APIInfo, HTTPRequest
 from ..tools.java_parser import parse_java_code
 
 
@@ -49,7 +49,7 @@ class APIExtractionNode(Node):
         self.logger.info(f"Loaded {len(deserialized_apis)} API objects")
         shared["apis"].extend(deserialized_apis)
         
-        for api in deserialized_apis:
-            self.logger.info(f"API: {api.controller_name}.{api.method_name} {api.code_pos}")
-            self.logger.info(f"{api.req}")
-            # self.logger.info("\n"+slice_code(shared["project_path"],api.code_pos))
+        # for api in deserialized_apis:
+            # self.logger.info(f"API: {api.controller_name}.{api.method_name} {api.code_pos}")
+            # self.logger.info(f"{api.req}")
+            # self.logger.info("\n"+slice_code(shared["project_path"], api.code_pos))

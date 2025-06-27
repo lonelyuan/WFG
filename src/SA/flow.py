@@ -10,7 +10,7 @@ from Util.logger import get_logger, get_session_dir
 from .nodes import (
     ProjectAnalysisNode,
     APIExtractionNode, 
-    APIAnalysisNode,
+    ContextExtentionNode,
     SummaryGenerationNode
 )
 
@@ -19,10 +19,10 @@ def create_sa_flow() -> Flow:
     # 创建节点实例
     project_analysis = ProjectAnalysisNode()
     api_extraction = APIExtractionNode()
-    api_analysis = APIAnalysisNode()
+    context_extention = ContextExtentionNode()
     summary_generation = SummaryGenerationNode()
     # 构建流程图
-    flow = project_analysis >> api_extraction >> api_analysis >> summary_generation
+    flow = project_analysis >> api_extraction >> context_extention >> summary_generation
     # 创建流程
     flow = Flow(start=project_analysis)
     return flow
