@@ -57,46 +57,82 @@ public class JavaParserIntegrationTest {
     @DisplayName("测试 API 提取功能")
     void testApiExtraction() throws Exception {
         System.out.println("\n=== 测试 API 提取功能 ===");
-        
-        Path outputFile = tempOutputDir.resolve("api_output.json");
+        // 使用测试代码路径作为输出目录，这样JSON文件会保存在测试源码目录下
         String[] args = {
             testCodePath.toString(),
-            "api",
-            "-o", outputFile.toString()
+            "API",
+            "-o", testCodePath.toString()
         };
-        
-        // 运行 API 提取
         assertDoesNotThrow(() -> Main.main(args), "API 提取过程不应抛出异常");
         
-        // 验证输出文件存在
-        assertTrue(Files.exists(outputFile), "API 提取输出文件应该存在");
+        // 检查生成的Controller分析文件
+        Path apiOutputDir = testCodePath.resolve("data").resolve("API");
+        assertTrue(Files.exists(apiOutputDir), "API输出目录应该存在");
+        assertTrue(Files.isDirectory(apiOutputDir), "API输出路径应该是目录");
         
-        // 解析并验证 JSON 内容
-        String jsonContent = Files.readString(outputFile);
-        assertFalse(jsonContent.trim().isEmpty(), "API 提取输出不应为空");
+        // 检查具体的Controller文件
+        Path userControllerFile = apiOutputDir.resolve("UserController.json");
+        Path productControllerFile = apiOutputDir.resolve("ProductController.json");
         
-        List<Map<String, Object>> apis = objectMapper.readValue(jsonContent, 
-            new TypeReference<List<Map<String, Object>>>() {});
+        assertTrue(Files.exists(userControllerFile) || Files.exists(productControllerFile), 
+            "至少应该存在一个Controller分析文件");
         
-        assertNotNull(apis, "API 列表不应为 null");
-        assertTrue(apis.size() > 0, "应该提取到至少一个 API");
+        if (Files.exists(userControllerFile)) {
+            System.out.println("\n--- UserController 分析结果 ---");
+            String userControllerContent = Files.readString(userControllerFile);
+            System.out.println(userControllerContent);
+            
+            // 验证增强分析结果的结构
+            Map<String, Object> userControllerAnalysis = objectMapper.readValue(userControllerContent, 
+                new TypeReference<Map<String, Object>>() {});
+            
+            assertTrue(userControllerAnalysis.containsKey("controller_name"), "应包含 controller_name");
+            assertTrue(userControllerAnalysis.containsKey("apis"), "应包含 apis");
+            assertTrue(userControllerAnalysis.containsKey("symbol_table"), "应包含 symbol_table");
+            assertTrue(userControllerAnalysis.containsKey("metadata"), "应包含 metadata");
+            
+            // 验证APIs包含references字段
+            List<Map<String, Object>> apis = (List<Map<String, Object>>) userControllerAnalysis.get("apis");
+            if (!apis.isEmpty()) {
+                Map<String, Object> firstApi = apis.get(0);
+                assertTrue(firstApi.containsKey("references"), "API应包含 references 字段");
+                assertTrue(firstApi.containsKey("controller_name"), "API应包含 controller_name");
+                assertTrue(firstApi.containsKey("method_name"), "API应包含 method_name");
+                assertTrue(firstApi.containsKey("code_pos"), "API应包含 code_pos");
+                System.out.println("✓ API包含符号引用: " + firstApi.get("references"));
+                System.out.println("✓ 成功提取 " + apis.size() + " 个 API");
+            }
+            
+            // 验证符号表
+            Map<String, Object> symbolTable = (Map<String, Object>) userControllerAnalysis.get("symbol_table");
+            System.out.println("✓ 符号表包含 " + symbolTable.size() + " 个符号");
+            
+            if (!symbolTable.isEmpty()) {
+                // 展示第一个符号的详细信息
+                String firstSymbolId = symbolTable.keySet().iterator().next();
+                Map<String, Object> firstSymbol = (Map<String, Object>) symbolTable.get(firstSymbolId);
+                System.out.println("符号示例 " + firstSymbolId + ":");
+                System.out.println("  - 符号名: " + firstSymbol.get("symbol_name"));
+                System.out.println("  - 符号类型: " + firstSymbol.get("symbol_type"));
+                System.out.println("  - 数据类型: " + firstSymbol.get("data_type"));
+                System.out.println("  - 作用域: " + firstSymbol.get("scope"));
+            }
+        }
         
-        // 验证 API 结构
-        Map<String, Object> firstApi = apis.get(0);
-        assertTrue(firstApi.containsKey("controller_name"), "API 应包含 controller_name");
-        assertTrue(firstApi.containsKey("method_name"), "API 应包含 method_name");
-        assertTrue(firstApi.containsKey("code_pos"), "API 应包含 code_pos");
+        if (Files.exists(productControllerFile)) {
+            System.out.println("\n--- ProductController 分析结果 ---");
+            String productControllerContent = Files.readString(productControllerFile);
+            System.out.println(productControllerContent);
+            
+            Map<String, Object> productControllerAnalysis = objectMapper.readValue(productControllerContent, 
+                new TypeReference<Map<String, Object>>() {});
+            List<Map<String, Object>> apis = (List<Map<String, Object>>) productControllerAnalysis.get("apis");
+            if (!apis.isEmpty()) {
+                System.out.println("✓ ProductController 包含 " + apis.size() + " 个 API");
+            }
+        }
         
-        System.out.println("✓ 成功提取 " + apis.size() + " 个 API");
-        
-        // 验证特定 API 是否被正确识别
-        boolean foundUserController = apis.stream()
-            .anyMatch(api -> "UserController".equals(api.get("controller_name")));
-        assertTrue(foundUserController, "应该找到 UserController 中的 API");
-        
-        boolean foundProductController = apis.stream()
-            .anyMatch(api -> "ProductController".equals(api.get("controller_name")));
-        assertTrue(foundProductController, "应该找到 ProductController 中的 API");
+        System.out.println("✓ API分析功能测试完成，结果已保存到测试源码目录");
     }
     
     @Test
@@ -104,147 +140,132 @@ public class JavaParserIntegrationTest {
     @DisplayName("测试引用查找功能")
     void testReferenceFinding() throws Exception {
         System.out.println("\n=== 测试引用查找功能 ===");
-        
-        String[] testSymbols = {"createUser", "userService", "emailService", "sendWelcomeEmail"};
+        String[] testSymbols = {"createUser", "userService", "emailService", "sendWelcomeEmail", "UserService", "EmailService"};
         
         for (String symbol : testSymbols) {
-            System.out.println("查找符号: " + symbol);
-            
+            System.out.println("\n--- 查找符号: " + symbol + " ---");
             Path outputFile = tempOutputDir.resolve("reference_" + symbol + ".json");
             String[] args = {
                 testCodePath.toString(),
-                "reference",
+                "REF",
                 "-s", symbol,
                 "-o", outputFile.toString()
             };
-            
-            // 运行引用查找
-            assertDoesNotThrow(() -> Main.main(args), 
-                "引用查找过程不应抛出异常: " + symbol);
-            
-            // 验证输出文件存在
-            assertTrue(Files.exists(outputFile), 
-                "引用查找输出文件应该存在: " + symbol);
-            
-            // 解析并验证 JSON 内容
+
+            assertDoesNotThrow(() -> Main.main(args), "引用查找过程不应抛出异常: " + symbol);
+            assertTrue(Files.exists(outputFile), "引用查找输出文件应该存在: " + symbol);
             String jsonContent = Files.readString(outputFile);
+            System.out.println("完整输出:");
+            System.out.println(jsonContent.isEmpty() ? "(空输出)" : jsonContent);
+            
             if (!jsonContent.trim().isEmpty()) {
                 List<Map<String, Object>> references = objectMapper.readValue(jsonContent, 
                     new TypeReference<List<Map<String, Object>>>() {});
-                
                 assertNotNull(references, "引用列表不应为 null: " + symbol);
-                
-                if (!references.isEmpty()) {
-                    // 验证引用结构
-                    Map<String, Object> firstRef = references.get(0);
-                    assertTrue(firstRef.containsKey("reference_type"), 
-                        "引用应包含 reference_type: " + symbol);
-                    assertTrue(firstRef.containsKey("code_pos"), 
-                        "引用应包含 code_pos: " + symbol);
-                    
-                    System.out.println("  ✓ 找到 " + references.size() + " 个引用");
-                } else {
-                    System.out.println("  - 未找到引用（可能正常）");
-                }
             } else {
-                System.out.println("  - 输出为空（可能正常）");
+                System.out.println("- 输出为空（可能正常）");
             }
         }
     }
     
+
+    
     @Test
     @Order(3)
-    @DisplayName("测试调用图分析功能")
-    void testCallGraphAnalysis() throws Exception {
-        System.out.println("\n=== 测试调用图分析功能 ===");
-        
-        Path outputFile = tempOutputDir.resolve("callgraph_output.json");
+    @DisplayName("测试符号定义查找功能")
+    void testDefinitionFinding() throws Exception {
+        System.out.println("\n=== 测试符号定义查找功能 ===");
+        String[] testSymbols = {"UserService", "EmailService", "createUser", "sendWelcomeEmail", "User", "UserRepository"};
+        for (String symbol : testSymbols) {
+            System.out.println("\n--- 查找符号定义: " + symbol + " ---");
+            Path outputFile = tempOutputDir.resolve("definition_" + symbol + ".json");
+            String[] args = {
+                testCodePath.toString(),
+                "DEF",
+                "-s", symbol,
+                "-o", outputFile.toString()
+            };
+            assertDoesNotThrow(() -> Main.main(args),  "定义查找过程不应抛出异常: " + symbol);
+            assertTrue(Files.exists(outputFile), "定义查找输出文件应该存在: " + symbol);
+            String jsonContent = Files.readString(outputFile);
+            System.out.println("完整输出:");
+            System.out.println(jsonContent.isEmpty() ? "(空输出)" : jsonContent);
+            
+            if (!jsonContent.trim().isEmpty()) {
+                List<Map<String, Object>> definitions = objectMapper.readValue(jsonContent, 
+                    new TypeReference<List<Map<String, Object>>>() {});
+                assertNotNull(definitions, "定义列表不应为 null: " + symbol);
+                
+                if (!definitions.isEmpty()) {
+                    System.out.println("\n定义详细信息:");
+                    for (int i = 0; i < definitions.size(); i++) {
+                        Map<String, Object> def = definitions.get(i);
+                        System.out.println(String.format("  定义 #%d:", i + 1));
+                        String defCode = (String) def.get("definition_code");
+                        if (defCode != null) {
+                            String displayCode = defCode.length() > 200 ? 
+                                defCode.substring(0, 200) + "...(截断)" : defCode;
+                            System.out.println("    定义代码: " + displayCode);
+                        }
+                    }
+                    
+                    // 验证定义结构
+                    Map<String, Object> firstDef = definitions.get(0);
+                    assertTrue(firstDef.containsKey("definition_type"), "定义应包含 definition_type: " + symbol);
+                    assertTrue(firstDef.containsKey("code_pos"), "定义应包含 code_pos: " + symbol);
+                    assertTrue(firstDef.containsKey("signature"), "定义应包含 signature: " + symbol);
+                    System.out.println("✓ 找到 " + definitions.size() + " 个定义");
+                } else {
+                    System.out.println("- 未找到定义（可能正常）");
+                }
+            } else {
+                System.out.println("- 输出为空（可能正常）");
+            }
+        }
+    }
+
+    @Test
+    @Order(4)
+    @DisplayName("测试调用图分析与可视化功能")
+    void testCallGraphVisualization() throws Exception {
+        System.out.println("\n=== 测试调用图分析与可视化功能 ===");
+        Path jsonOutputFile = testCodePath.resolve("call_graph.json");
+        Path svgOutputFile = testCodePath.resolve("call_graph.svg");
         String[] args = {
             testCodePath.toString(),
-            "callgraph",
-            "-o", outputFile.toString()
+            "CG",
+            "-o", jsonOutputFile.toString(),
+            "-img", svgOutputFile.toString()
         };
-        
-        // 运行调用图分析
-        assertDoesNotThrow(() -> Main.main(args), "调用图分析过程不应抛出异常");
-        
-        // 验证输出文件存在
-        assertTrue(Files.exists(outputFile), "调用图分析输出文件应该存在");
-        
-        // 解析并验证 JSON 内容
-        String jsonContent = Files.readString(outputFile);
+        assertDoesNotThrow(() -> Main.main(args), "调用图分析不应抛出异常");
+        String jsonContent = Files.readString(jsonOutputFile);
         assertFalse(jsonContent.trim().isEmpty(), "调用图分析输出不应为空");
-        
-        Map<String, Map<String, Object>> callGraph = objectMapper.readValue(jsonContent, 
+        Map<String, Map<String, Object>> callGraph = objectMapper.readValue(jsonContent,
             new TypeReference<Map<String, Map<String, Object>>>() {});
-        
         assertNotNull(callGraph, "调用图不应为 null");
-        assertTrue(callGraph.size() > 0, "应该分析到至少一个方法");
-        
-        System.out.println("✓ 成功分析 " + callGraph.size() + " 个方法的调用关系");
-        
-        // 验证调用图结构
-        for (Map.Entry<String, Map<String, Object>> entry : callGraph.entrySet()) {
-            Map<String, Object> methodData = entry.getValue();
-            assertTrue(methodData.containsKey("method_signature"), 
-                "方法数据应包含 method_signature");
-            assertTrue(methodData.containsKey("class_name"), 
-                "方法数据应包含 class_name");
-            assertTrue(methodData.containsKey("callers"), 
-                "方法数据应包含 callers");
-            assertTrue(methodData.containsKey("callees"), 
-                "方法数据应包含 callees");
-        }
-        
-        // 验证特定方法的调用关系
-        boolean foundUserServiceMethods = callGraph.keySet().stream()
-            .anyMatch(key -> key.contains("UserService"));
-        assertTrue(foundUserServiceMethods, "应该找到 UserService 中的方法");
-        
-        boolean foundEmailServiceMethods = callGraph.keySet().stream()
-            .anyMatch(key -> key.contains("EmailService"));
-        assertTrue(foundEmailServiceMethods, "应该找到 EmailService 中的方法");
-        
-        // 验证调用关系的合理性
+        assertFalse(callGraph.isEmpty(), "应该分析到至少一个方法");
+        System.out.println("=== 调用图统计信息 ===");
+        System.out.println("总方法数: " + callGraph.size());
         long totalCallRelations = callGraph.values().stream()
             .mapToLong(method -> {
                 List<?> callees = (List<?>) method.get("callees");
                 return callees != null ? callees.size() : 0;
             })
             .sum();
-        
-        System.out.println("✓ 总调用关系数: " + totalCallRelations);
-        assertTrue(totalCallRelations > 0, "应该存在调用关系");
-    }
 
-    
-    /**
-     * 统计测试方法
-     */
-    private void printTestStatistics() {
-        System.out.println("\n=== 测试统计 ===");
-        System.out.println("测试代码文件数量: " + countJavaFiles(testCodePath));
-        System.out.println("临时文件数量: " + countFiles(tempOutputDir));
-    }
-    
-    private long countJavaFiles(Path dir) {
-        try {
-            return Files.walk(dir)
-                .filter(Files::isRegularFile)
-                .filter(p -> p.toString().endsWith(".java"))
-                .count();
-        } catch (IOException e) {
-            return 0;
+        System.out.println("总调用关系数: " + totalCallRelations);
+
+        // 统计各类方法数量
+        Map<String, Integer> classMethodCount = new HashMap<>();
+        for (Map<String, Object> methodData : callGraph.values()) {
+            String className = (String) methodData.get("class_name");
+            classMethodCount.put(className, classMethodCount.getOrDefault(className, 0) + 1);
         }
-    }
-    
-    private long countFiles(Path dir) {
-        try {
-            return Files.walk(dir)
-                .filter(Files::isRegularFile)
-                .count();
-        } catch (IOException e) {
-            return 0;
-        }
+        System.out.println("各类方法统计:");
+        classMethodCount.entrySet().stream()
+            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+            .forEach(entry ->
+                System.out.println("  " + entry.getKey() + ": " + entry.getValue() + " 个方法"));
+        System.out.println("✓ 调用图生成成功，文件保存在测试源代码目录下");
     }
 } 

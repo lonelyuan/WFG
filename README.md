@@ -1,20 +1,16 @@
 # WFG - WebFuzz生成框架
 
-WebFuzzGen 是基于测试脚本生成的通用WebFuzz框架。
+WebFuzzGen 是以测试脚本生成为核心的通用Web应用漏洞挖掘 Agent 框架。
+
+![](docs/arch.png)
 
 ## 项目流程
 
-### 静态分析 (SA)
+### Stage1: 静态分析 (SA)
 
-```mermaid
-flowchart TD
-    subgraph SA[静态分析]
-        A[框架分析] --> B[API提取]
-        B --> C[上下文扩展]
-        C --> D[分析总结]
-        D -- "信息不足" --> C
-    end
-```
+### Stage2: 脚本生成 (Gen)
+
+### Stage3: 动态测试 (DF)
 
 ## 运行方法
 

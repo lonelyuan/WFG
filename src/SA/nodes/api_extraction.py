@@ -31,7 +31,7 @@ class APIExtractionNode(Node):
     
     def exec(self, prep_res: tuple[Path, Path]):
         project_path, session_dir = prep_res
-        tool_result = self.parser_func(str(project_path), str(session_dir / "api_extraction.json"))
+        tool_result = self.parser_func(str(project_path), str(session_dir / "data" / "API"))
         if tool_result['status'] != 0:
             self.logger.warning(f"No APIs extracted from {project_path}")
         return tool_result

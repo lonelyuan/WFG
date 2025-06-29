@@ -1,6 +1,8 @@
 package SA.tool.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApiInfo {
 
@@ -15,6 +17,9 @@ public class ApiInfo {
 
     @JsonProperty("req")
     private HttpRequest req;
+    
+    @JsonProperty("references")
+    private List<String> references = new ArrayList<>();
 
     // Getters and Setters
     public String getControllerName() {
@@ -47,5 +52,17 @@ public class ApiInfo {
 
     public void setReq(HttpRequest req) {
         this.req = req;
+    }
+
+    public List<String> getReferences() {
+        return references;
+    }
+
+    public void setReferences(List<String> references) {
+        this.references = references;
+    }
+    
+    public void addReference(String symbolId) {
+        this.references.add(symbolId);
     }
 } 

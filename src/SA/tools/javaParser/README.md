@@ -4,35 +4,37 @@
 
 ## 已实现功能
 
-### 1. API提取
-针对spring框架的绝大部分常用注解，进行模式匹配，提取所有api，输出api的定义，请求参数格式，controller函数的源代码等。
+### 1. API提取与符号分析
+针对Spring框架Controller类，提取API信息并进行完整的符号分析，输出包含API定义、符号表和上下文引用的增强分析结果。
 
 ```bash
-java -jar parser.jar <project-path> api [-o <output-file>]
+java -jar parser.jar <project-path> API [-o <output-dir>]
 ```
 
 ### 2. 引用查找 (Find Reference)
-输入特定符号，查找代码中所有引用，输出引用处列表的代码位置和上下文信息。
+输入特定符号，查找代码中所有引用位置和上下文信息。
 
 ```bash
-# 查找所有名为 "methodName" 的引用
-java -jar parser.jar <project-path> reference -s <symbol> [-o <output-file>]
+# 查找所有名为符号的引用
+java -jar parser.jar <project-path> REF -s <symbol> [-o <output-file>]
 
 # 查找特定位置定义的符号的所有引用
-java -jar parser.jar <project-path> reference -s <symbol> -f <file> -l <line> [-o <output-file>]
+java -jar parser.jar <project-path> REF -s <symbol> -f <file> -l <line> [-o <output-file>]
 ```
 
 ### 3. 调用链分析 (Call Graph)
-分析项目中所有方法的调用关系，构建完整的调用图。
+分析项目中所有方法的调用关系，构建完整的调用图并支持可视化。
 
 ```bash
-java -jar parser.jar <project-path> callgraph [-o <output-file>]
+java -jar parser.jar <project-path> CG [-o <output-file>] [-img <image-file>] [-layout <engine>] [-filter <classes>] [-keep-isolated] [-no-image]
 ```
 
-## 待实现功能
+### 4. 符号定义查找 (Go to Definition)
+输入特定符号，查找其定义位置和源代码。
 
-### 符号解析 (Go to Definition)
-输入特定符号（包括代码位置），解析其定义，输出符号定义的源代码
+```bash
+java -jar parser.jar <project-path> DEF -s <symbol> [-o <output-file>]
+```
 
 ## 编译和运行
 

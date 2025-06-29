@@ -8,6 +8,7 @@ import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import SA.tool.model.ReferenceInfo;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -131,8 +132,31 @@ public class ReferenceFinderVisitor extends VoidVisitorAdapter<List<ReferenceInf
     }
 
     private String getLineContent(Expression expr) {
-        // 简化实现：返回表达式的字符串表示
-        // 实际实现中可以读取源文件获取完整行内容
+        try {
+            // 获取编译单元和源文件路径
+            CompilationUnit cu = expr.findCompilationUnit().orElse(null);
+            if (cu == null || !cu.getStorage().isPresent()) {
+                return expr.toString(); // 回退到简单实现
+            }
+            
+            Path sourceFile = cu.getStorage().get().getPath();
+            int lineNumber = expr.getBegin().map(pos -> pos.line).orElse(-1);
+            
+            if (lineNumber == -1) {
+                return expr.toString();
+            }
+            
+            // 读取源文件的指定行
+            List<String> lines = Files.readAllLines(sourceFile);
+            if (lineNumber > 0 && lineNumber <= lines.size()) {
+                return lines.get(lineNumber - 1).trim(); // 行号从1开始，数组从0开始
+            }
+            
+        } catch (Exception e) {
+            // 如果读取文件失败，回退到简单实现
+            System.err.println("Warning: Failed to read line content: " + e.getMessage());
+        }
+        
         return expr.toString();
     }
 } 

@@ -1,0 +1,1302 @@
+{
+  "ProductController.getFeaturedProducts()" : {
+    "method_signature" : "ProductController.getFeaturedProducts()",
+    "class_name" : "ProductController",
+    "method_name" : "getFeaturedProducts",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L88-L92",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserRepository.findByCreatedAtBetween(LocalDateTime, LocalDateTime)" : {
+    "method_signature" : "UserRepository.findByCreatedAtBetween(LocalDateTime, LocalDateTime)",
+    "class_name" : "UserRepository",
+    "method_name" : "findByCreatedAtBetween",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L34-L34",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailService.sendOrderConfirmationEmail(String, String)" : {
+    "method_signature" : "EmailService.sendOrderConfirmationEmail(String, String)",
+    "class_name" : "EmailService",
+    "method_name" : "sendOrderConfirmationEmail",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L74-L86",
+    "callers" : [ ],
+    "callees" : [ "EmailMessage.getContent()", "EmailService.sendEmail(String, String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "EmailMessage.getContent()",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L82:C58",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailService.sendEmail(String, String, String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L85:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserRepository.findByEmailEndingWith(String)" : {
+    "method_signature" : "UserRepository.findByEmailEndingWith(String)",
+    "class_name" : "UserRepository",
+    "method_name" : "findByEmailEndingWith",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L32-L32",
+    "callers" : [ "UserService.findUsersByEmailDomain(String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserCreateRequest.getPassword()" : {
+    "method_signature" : "UserCreateRequest.getPassword()",
+    "class_name" : "UserCreateRequest",
+    "method_name" : "getPassword",
+    "code_pos" : "com\\example\\demo\\dto\\UserCreateRequest.java:L47-L49",
+    "callers" : [ "UserService.createUser(UserCreateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserCreateRequest.getEmail()" : {
+    "method_signature" : "UserCreateRequest.getEmail()",
+    "class_name" : "UserCreateRequest",
+    "method_name" : "getEmail",
+    "code_pos" : "com\\example\\demo\\dto\\UserCreateRequest.java:L39-L41",
+    "callers" : [ "UserService.createUser(UserCreateRequest)", "UserService.updateUser(Long, UserUpdateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.deleteUserAdvanced(String, String, boolean)" : {
+    "method_signature" : "UserController.deleteUserAdvanced(String, String, boolean)",
+    "class_name" : "UserController",
+    "method_name" : "deleteUserAdvanced",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L144-L173",
+    "callers" : [ ],
+    "callees" : [ "User.equals(Object)", "UserService.updateUser(Long, UserUpdateRequest)", "UserService.deleteUser(Long)" ],
+    "call_sites" : [ {
+      "target_method" : "User.equals(Object)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L151:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserService.updateUser(Long, UserUpdateRequest)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L157:C23",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserService.deleteUser(Long)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L152:C23",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserService.createUser(UserCreateRequest)" : {
+    "method_signature" : "UserService.createUser(UserCreateRequest)",
+    "class_name" : "UserService",
+    "method_name" : "createUser",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L36-L50",
+    "callers" : [ "UserController.createUserAdvanced(Map<String, String>, String, String)" ],
+    "callees" : [ "User.setUsername(String)", "User.getUsername()", "User.setEmail(String)", "UserCreateRequest.getEmail()", "UserCreateRequest.setPassword(String)", "UserService.hashPassword(String)", "UserCreateRequest.getPassword()", "User.setCreatedAt(LocalDateTime)", "User.setActive(Boolean)", "EmailService.sendWelcomeEmail(String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "User.setUsername(String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L40:C9",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.getUsername()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L40:C26",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.setEmail(String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L41:C9",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserCreateRequest.getEmail()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L41:C23",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserCreateRequest.setPassword(String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L42:C9",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserService.hashPassword(String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L42:C26",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserCreateRequest.getPassword()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L42:C39",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.setCreatedAt(LocalDateTime)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L43:C9",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.setActive(Boolean)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L44:C9",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailService.sendWelcomeEmail(String, String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L47:C9",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserCreateRequest.getEmail()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L47:C39",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.getUsername()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L47:C61",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "EmailMessage.setContent(String)" : {
+    "method_signature" : "EmailMessage.setContent(String)",
+    "class_name" : "EmailMessage",
+    "method_name" : "setContent",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L164-L164",
+    "callers" : [ "EmailService.sendEmail(String, String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailService.sendPromotionEmail(String, String)" : {
+    "method_signature" : "EmailService.sendPromotionEmail(String, String)",
+    "class_name" : "EmailService",
+    "method_name" : "sendPromotionEmail",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L88-L100",
+    "callers" : [ ],
+    "callees" : [ "EmailMessage.getContent()", "EmailService.sendEmail(String, String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "EmailMessage.getContent()",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L96:C58",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailService.sendEmail(String, String, String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L99:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "ProductController.createProduct(ProductCreateRequest)" : {
+    "method_signature" : "ProductController.createProduct(ProductCreateRequest)",
+    "class_name" : "ProductController",
+    "method_name" : "createProduct",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L44-L49",
+    "callers" : [ "ProductController.createProduct(ProductCreateRequest)" ],
+    "callees" : [ "ProductController.createProduct(ProductCreateRequest)", "User.getId()", "UserCreateRequest.getInitialStock()" ],
+    "call_sites" : [ {
+      "target_method" : "ProductController.createProduct(ProductCreateRequest)",
+      "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L46:C34",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.getId()",
+      "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L47:C42",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserCreateRequest.getInitialStock()",
+      "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L47:C66",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserService.countActiveUsers()" : {
+    "method_signature" : "UserService.countActiveUsers()",
+    "class_name" : "UserService",
+    "method_name" : "countActiveUsers",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L114-L116",
+    "callers" : [ ],
+    "callees" : [ "UserRepository.countByActiveTrue()" ],
+    "call_sites" : [ {
+      "target_method" : "UserRepository.countByActiveTrue()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L115:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserController.paginateResults(List<Map<String, Object>>, int, int)" : {
+    "method_signature" : "UserController.paginateResults(List<Map<String, Object>>, int, int)",
+    "class_name" : "UserController",
+    "method_name" : "paginateResults",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L264-L273",
+    "callers" : [ "UserController.searchUsers(String, String, int, int, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserService.isEmailExists(String)" : {
+    "method_signature" : "UserService.isEmailExists(String)",
+    "class_name" : "UserService",
+    "method_name" : "isEmailExists",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L93-L95",
+    "callers" : [ ],
+    "callees" : [ "UserRepository.existsByEmail(String)" ],
+    "call_sites" : [ {
+      "target_method" : "UserRepository.existsByEmail(String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L94:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "User.onCreate()" : {
+    "method_signature" : "User.onCreate()",
+    "class_name" : "User",
+    "method_name" : "onCreate",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L43-L46",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserRepository.findByUsernameContainingOrEmailContaining(String, String)" : {
+    "method_signature" : "UserRepository.findByUsernameContainingOrEmailContaining(String, String)",
+    "class_name" : "UserRepository",
+    "method_name" : "findByUsernameContainingOrEmailContaining",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L30-L30",
+    "callers" : [ "UserService.searchUsers(String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.getPassword()" : {
+    "method_signature" : "User.getPassword()",
+    "class_name" : "User",
+    "method_name" : "getPassword",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L89-L91",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailMessage.getFrom()" : {
+    "method_signature" : "EmailMessage.getFrom()",
+    "class_name" : "EmailMessage",
+    "method_name" : "getFrom",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L157-L157",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.onUpdate()" : {
+    "method_signature" : "User.onUpdate()",
+    "class_name" : "User",
+    "method_name" : "onUpdate",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L48-L51",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailService.sendWelcomeEmail(String, String)" : {
+    "method_signature" : "EmailService.sendWelcomeEmail(String, String)",
+    "class_name" : "EmailService",
+    "method_name" : "sendWelcomeEmail",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L32-L44",
+    "callers" : [ "UserService.createUser(UserCreateRequest)" ],
+    "callees" : [ "EmailMessage.getContent()", "EmailService.sendEmail(String, String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "EmailMessage.getContent()",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L40:C58",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailService.sendEmail(String, String, String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L43:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "User.equals(Object)" : {
+    "method_signature" : "User.equals(Object)",
+    "class_name" : "User",
+    "method_name" : "equals",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L129-L137",
+    "callers" : [ "User.equals(Object)", "UserController.deleteUserAdvanced(String, String, boolean)" ],
+    "callees" : [ "User.equals(Object)" ],
+    "call_sites" : [ {
+      "target_method" : "User.equals(Object)",
+      "code_pos" : "com\\example\\demo\\entity\\User.java:L134:C16",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.equals(Object)",
+      "code_pos" : "com\\example\\demo\\entity\\User.java:L135:C16",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.equals(Object)",
+      "code_pos" : "com\\example\\demo\\entity\\User.java:L136:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserController.createUserAdvanced(Map<String, String>, String, String)" : {
+    "method_signature" : "UserController.createUserAdvanced(Map<String, String>, String, String)",
+    "class_name" : "UserController",
+    "method_name" : "createUserAdvanced",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L31-L57",
+    "callers" : [ ],
+    "callees" : [ "UserService.createUser(UserCreateRequest)" ],
+    "call_sites" : [ {
+      "target_method" : "UserService.createUser(UserCreateRequest)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L40:C25",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserRepository.deleteByActiveeFalseAndCreatedAtBefore(LocalDateTime)" : {
+    "method_signature" : "UserRepository.deleteByActiveeFalseAndCreatedAtBefore(LocalDateTime)",
+    "class_name" : "UserRepository",
+    "method_name" : "deleteByActiveeFalseAndCreatedAtBefore",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L48-L48",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserService.searchUsers(String)" : {
+    "method_signature" : "UserService.searchUsers(String)",
+    "class_name" : "UserService",
+    "method_name" : "searchUsers",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L73-L75",
+    "callers" : [ ],
+    "callees" : [ "UserRepository.findByUsernameContainingOrEmailContaining(String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "UserRepository.findByUsernameContainingOrEmailContaining(String, String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L74:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserController.addUserStatistics(Map<String, Object>, String)" : {
+    "method_signature" : "UserController.addUserStatistics(Map<String, Object>, String)",
+    "class_name" : "UserController",
+    "method_name" : "addUserStatistics",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L235-L238",
+    "callers" : [ "UserController.getUserDetails(String, String, boolean)" ],
+    "callees" : [ "UserController.calculateUserStatistics(String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "UserController.calculateUserStatistics(String, String)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L236:C37",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserService.deactivateUser(Long)" : {
+    "method_signature" : "UserService.deactivateUser(Long)",
+    "class_name" : "UserService",
+    "method_name" : "deactivateUser",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L85-L91",
+    "callers" : [ ],
+    "callees" : [ "User.setActive(Boolean)", "User.setUpdatedAt(LocalDateTime)" ],
+    "call_sites" : [ {
+      "target_method" : "User.setActive(Boolean)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L87:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.setUpdatedAt(LocalDateTime)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L88:C13",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "User.hashCode()" : {
+    "method_signature" : "User.hashCode()",
+    "class_name" : "User",
+    "method_name" : "hashCode",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L139-L142",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailMessage.setFrom(String)" : {
+    "method_signature" : "EmailMessage.setFrom(String)",
+    "class_name" : "EmailMessage",
+    "method_name" : "setFrom",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L158-L158",
+    "callers" : [ "EmailService.sendEmail(String, String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.setEmail(String)" : {
+    "method_signature" : "User.setEmail(String)",
+    "class_name" : "User",
+    "method_name" : "setEmail",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L85-L87",
+    "callers" : [ "UserService.createUser(UserCreateRequest)", "UserService.updateUser(Long, UserUpdateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.buildSearchConditions(String, String)" : {
+    "method_signature" : "UserController.buildSearchConditions(String, String)",
+    "class_name" : "UserController",
+    "method_name" : "buildSearchConditions",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L253-L262",
+    "callers" : [ "UserController.searchUsers(String, String, int, int, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.setCreatedAt(LocalDateTime)" : {
+    "method_signature" : "User.setCreatedAt(LocalDateTime)",
+    "class_name" : "User",
+    "method_name" : "setCreatedAt",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L109-L111",
+    "callers" : [ "UserService.createUser(UserCreateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailService.generateResetLink(String)" : {
+    "method_signature" : "EmailService.generateResetLink(String)",
+    "class_name" : "EmailService",
+    "method_name" : "generateResetLink",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L128-L130",
+    "callers" : [ "EmailService.sendPasswordResetEmail(String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.setActive(Boolean)" : {
+    "method_signature" : "User.setActive(Boolean)",
+    "class_name" : "User",
+    "method_name" : "setActive",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L101-L103",
+    "callers" : [ "UserService.createUser(UserCreateRequest)", "UserService.activateUser(Long)", "UserService.deactivateUser(Long)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailMessage.setSentAt(LocalDateTime)" : {
+    "method_signature" : "EmailMessage.setSentAt(LocalDateTime)",
+    "class_name" : "EmailMessage",
+    "method_name" : "setSentAt",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L166-L166",
+    "callers" : [ "EmailService.sendEmail(String, String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.uploadUserAvatar(String, String, String)" : {
+    "method_signature" : "UserController.uploadUserAvatar(String, String, String)",
+    "class_name" : "UserController",
+    "method_name" : "uploadUserAvatar",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L178-L202",
+    "callers" : [ ],
+    "callees" : [ "UserController.processAvatarUpload(String, String)", "UserService.updateUser(Long, UserUpdateRequest)" ],
+    "call_sites" : [ {
+      "target_method" : "UserController.processAvatarUpload(String, String)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L186:C28",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserService.updateUser(Long, UserUpdateRequest)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L191:C27",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "EmailService.sendPasswordResetEmail(String, String)" : {
+    "method_signature" : "EmailService.sendPasswordResetEmail(String, String)",
+    "class_name" : "EmailService",
+    "method_name" : "sendPasswordResetEmail",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L59-L72",
+    "callers" : [ ],
+    "callees" : [ "EmailService.generateResetLink(String)", "EmailMessage.getContent()", "EmailService.sendEmail(String, String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "EmailService.generateResetLink(String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L67:C28",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailMessage.getContent()",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L68:C58",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailService.sendEmail(String, String, String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L71:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserController.processAvatarUpload(String, String)" : {
+    "method_signature" : "UserController.processAvatarUpload(String, String)",
+    "class_name" : "UserController",
+    "method_name" : "processAvatarUpload",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L287-L290",
+    "callers" : [ "UserController.uploadUserAvatar(String, String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserCreateRequest.setInitialStock(Integer)" : {
+    "method_signature" : "UserCreateRequest.setInitialStock(Integer)",
+    "class_name" : "UserCreateRequest",
+    "method_name" : "setInitialStock",
+    "code_pos" : "com\\example\\demo\\dto\\UserCreateRequest.java:L59-L61",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "ProductController.applyDiscount(Long, BigDecimal)" : {
+    "method_signature" : "ProductController.applyDiscount(Long, BigDecimal)",
+    "class_name" : "ProductController",
+    "method_name" : "applyDiscount",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L80-L86",
+    "callers" : [ "ProductController.applyDiscount(Long, BigDecimal)" ],
+    "callees" : [ "ProductController.applyDiscount(Long, BigDecimal)" ],
+    "call_sites" : [ {
+      "target_method" : "ProductController.applyDiscount(Long, BigDecimal)",
+      "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L83:C37",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserRepository.existsByEmail(String)" : {
+    "method_signature" : "UserRepository.existsByEmail(String)",
+    "class_name" : "UserRepository",
+    "method_name" : "existsByEmail",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L22-L22",
+    "callers" : [ "UserService.isEmailExists(String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserRepository.findUsersCreatedAfter(LocalDateTime)" : {
+    "method_signature" : "UserRepository.findUsersCreatedAfter(LocalDateTime)",
+    "class_name" : "UserRepository",
+    "method_name" : "findUsersCreatedAfter",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L36-L37",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.convertToXml(List<Map<String, Object>>)" : {
+    "method_signature" : "UserController.convertToXml(List<Map<String, Object>>)",
+    "class_name" : "UserController",
+    "method_name" : "convertToXml",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L324-L336",
+    "callers" : [ "UserController.formatExportData(List<Map<String, Object>>, String)" ],
+    "callees" : [ "User.toString()" ],
+    "call_sites" : [ {
+      "target_method" : "User.toString()",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L335:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserRepository.findByActiveFalse()" : {
+    "method_signature" : "UserRepository.findByActiveFalse()",
+    "class_name" : "UserRepository",
+    "method_name" : "findByActiveFalse",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L26-L26",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.getLastLoginAt()" : {
+    "method_signature" : "User.getLastLoginAt()",
+    "class_name" : "User",
+    "method_name" : "getLastLoginAt",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L121-L123",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserService.findUsersByEmailDomain(String)" : {
+    "method_signature" : "UserService.findUsersByEmailDomain(String)",
+    "class_name" : "UserService",
+    "method_name" : "findUsersByEmailDomain",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L110-L112",
+    "callers" : [ ],
+    "callees" : [ "UserRepository.findByEmailEndingWith(String)" ],
+    "call_sites" : [ {
+      "target_method" : "UserRepository.findByEmailEndingWith(String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L111:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "EmailMessage.setSubject(String)" : {
+    "method_signature" : "EmailMessage.setSubject(String)",
+    "class_name" : "EmailMessage",
+    "method_name" : "setSubject",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L162-L162",
+    "callers" : [ "EmailService.sendEmail(String, String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.calculateUserStatistics(String, String)" : {
+    "method_signature" : "UserController.calculateUserStatistics(String, String)",
+    "class_name" : "UserController",
+    "method_name" : "calculateUserStatistics",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L292-L299",
+    "callers" : [ "UserController.getUserStatistics(String, String)", "UserController.addUserStatistics(Map<String, Object>, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.toString()" : {
+    "method_signature" : "User.toString()",
+    "class_name" : "User",
+    "method_name" : "toString",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L144-L153",
+    "callers" : [ "UserController.sortResults(List<Map<String, Object>>, String)", "UserController.convertToCsv(List<Map<String, Object>>)", "UserController.convertToXml(List<Map<String, Object>>)", "UserController.convertToJson(List<Map<String, Object>>)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserService.hashPassword(String)" : {
+    "method_signature" : "UserService.hashPassword(String)",
+    "class_name" : "UserService",
+    "method_name" : "hashPassword",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L101-L104",
+    "callers" : [ "UserService.createUser(UserCreateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.searchUsers(String, String, int, int, String)" : {
+    "method_signature" : "UserController.searchUsers(String, String, int, int, String)",
+    "class_name" : "UserController",
+    "method_name" : "searchUsers",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L122-L139",
+    "callers" : [ ],
+    "callees" : [ "UserController.buildSearchConditions(String, String)", "UserController.paginateResults(List<Map<String, Object>>, int, int)", "UserController.sortResults(List<Map<String, Object>>, String)" ],
+    "call_sites" : [ {
+      "target_method" : "UserController.buildSearchConditions(String, String)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L130:C42",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserController.paginateResults(List<Map<String, Object>>, int, int)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L135:C44",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserController.sortResults(List<Map<String, Object>>, String)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L136:C18",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserService.isUsernameExists(String)" : {
+    "method_signature" : "UserService.isUsernameExists(String)",
+    "class_name" : "UserService",
+    "method_name" : "isUsernameExists",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L97-L99",
+    "callers" : [ ],
+    "callees" : [ "UserRepository.existsByUsername(String)" ],
+    "call_sites" : [ {
+      "target_method" : "UserRepository.existsByUsername(String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L98:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserController.batchUpdateUsers(Map<String, Map<String, String>>, int)" : {
+    "method_signature" : "UserController.batchUpdateUsers(Map<String, Map<String, String>>, int)",
+    "class_name" : "UserController",
+    "method_name" : "batchUpdateUsers",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L87-L117",
+    "callers" : [ ],
+    "callees" : [ "UserService.updateUser(Long, UserUpdateRequest)" ],
+    "call_sites" : [ {
+      "target_method" : "UserService.updateUser(Long, UserUpdateRequest)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L103:C31",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserController.convertToJson(List<Map<String, Object>>)" : {
+    "method_signature" : "UserController.convertToJson(List<Map<String, Object>>)",
+    "class_name" : "UserController",
+    "method_name" : "convertToJson",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L338-L341",
+    "callers" : [ "UserController.formatExportData(List<Map<String, Object>>, String)" ],
+    "callees" : [ "User.toString()" ],
+    "call_sites" : [ {
+      "target_method" : "User.toString()",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L340:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "User.getUsername()" : {
+    "method_signature" : "User.getUsername()",
+    "class_name" : "User",
+    "method_name" : "getUsername",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L73-L75",
+    "callers" : [ "UserService.createUser(UserCreateRequest)", "UserService.updateUser(Long, UserUpdateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "ProductController.getProductsByCategory(String)" : {
+    "method_signature" : "ProductController.getProductsByCategory(String)",
+    "class_name" : "ProductController",
+    "method_name" : "getProductsByCategory",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L66-L70",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.getActive()" : {
+    "method_signature" : "User.getActive()",
+    "class_name" : "User",
+    "method_name" : "getActive",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L97-L99",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "ProductController.searchProducts(String, BigDecimal, BigDecimal)" : {
+    "method_signature" : "ProductController.searchProducts(String, BigDecimal, BigDecimal)",
+    "class_name" : "ProductController",
+    "method_name" : "searchProducts",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L72-L78",
+    "callers" : [ "ProductController.searchProducts(String, BigDecimal, BigDecimal)" ],
+    "callees" : [ "ProductController.searchProducts(String, BigDecimal, BigDecimal)" ],
+    "call_sites" : [ {
+      "target_method" : "ProductController.searchProducts(String, BigDecimal, BigDecimal)",
+      "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L76:C34",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "EmailService.logEmailFailed(String, String)" : {
+    "method_signature" : "EmailService.logEmailFailed(String, String)",
+    "class_name" : "EmailService",
+    "method_name" : "logEmailFailed",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L136-L138",
+    "callers" : [ "EmailService.sendEmail(String, String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserService.findUserById(Long)" : {
+    "method_signature" : "UserService.findUserById(Long)",
+    "class_name" : "UserService",
+    "method_name" : "findUserById",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L32-L34",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailMessage.getSubject()" : {
+    "method_signature" : "EmailMessage.getSubject()",
+    "class_name" : "EmailMessage",
+    "method_name" : "getSubject",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L161-L161",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.getUpdatedAt()" : {
+    "method_signature" : "User.getUpdatedAt()",
+    "class_name" : "User",
+    "method_name" : "getUpdatedAt",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L113-L115",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserRepository.existsByUsername(String)" : {
+    "method_signature" : "UserRepository.existsByUsername(String)",
+    "class_name" : "UserRepository",
+    "method_name" : "existsByUsername",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L20-L20",
+    "callers" : [ "UserService.isUsernameExists(String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserCreateRequest.setEmail(String)" : {
+    "method_signature" : "UserCreateRequest.setEmail(String)",
+    "class_name" : "UserCreateRequest",
+    "method_name" : "setEmail",
+    "code_pos" : "com\\example\\demo\\dto\\UserCreateRequest.java:L43-L45",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "ProductController.updateProduct(Long, ProductUpdateRequest)" : {
+    "method_signature" : "ProductController.updateProduct(Long, ProductUpdateRequest)",
+    "class_name" : "ProductController",
+    "method_name" : "updateProduct",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L51-L57",
+    "callers" : [ "ProductController.updateProduct(Long, ProductUpdateRequest)" ],
+    "callees" : [ "ProductController.updateProduct(Long, ProductUpdateRequest)" ],
+    "call_sites" : [ {
+      "target_method" : "ProductController.updateProduct(Long, ProductUpdateRequest)",
+      "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L54:C44",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserService.deleteUser(Long)" : {
+    "method_signature" : "UserService.deleteUser(Long)",
+    "class_name" : "UserService",
+    "method_name" : "deleteUser",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L65-L71",
+    "callers" : [ "UserController.deleteUserAdvanced(String, String, boolean)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.setUpdatedAt(LocalDateTime)" : {
+    "method_signature" : "User.setUpdatedAt(LocalDateTime)",
+    "class_name" : "User",
+    "method_name" : "setUpdatedAt",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L117-L119",
+    "callers" : [ "UserService.updateUser(Long, UserUpdateRequest)", "UserService.activateUser(Long)", "UserService.deactivateUser(Long)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserService.findActiveUsers()" : {
+    "method_signature" : "UserService.findActiveUsers()",
+    "class_name" : "UserService",
+    "method_name" : "findActiveUsers",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L106-L108",
+    "callers" : [ ],
+    "callees" : [ "UserRepository.findByActiveTrue()" ],
+    "call_sites" : [ {
+      "target_method" : "UserRepository.findByActiveTrue()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L107:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserRepository.searchByKeyword(String)" : {
+    "method_signature" : "UserRepository.searchByKeyword(String)",
+    "class_name" : "UserRepository",
+    "method_name" : "searchByKeyword",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L45-L46",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserCreateRequest.getUsername()" : {
+    "method_signature" : "UserCreateRequest.getUsername()",
+    "class_name" : "UserCreateRequest",
+    "method_name" : "getUsername",
+    "code_pos" : "com\\example\\demo\\dto\\UserCreateRequest.java:L31-L33",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailService.logEmailError(String, String, Exception)" : {
+    "method_signature" : "EmailService.logEmailError(String, String, Exception)",
+    "class_name" : "EmailService",
+    "method_name" : "logEmailError",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L140-L143",
+    "callers" : [ "EmailService.sendEmail(String, String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserCreateRequest.getInitialStock()" : {
+    "method_signature" : "UserCreateRequest.getInitialStock()",
+    "class_name" : "UserCreateRequest",
+    "method_name" : "getInitialStock",
+    "code_pos" : "com\\example\\demo\\dto\\UserCreateRequest.java:L55-L57",
+    "callers" : [ "ProductController.createProduct(ProductCreateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.getCreatedAt()" : {
+    "method_signature" : "User.getCreatedAt()",
+    "class_name" : "User",
+    "method_name" : "getCreatedAt",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L105-L107",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.formatExportData(List<Map<String, Object>>, String)" : {
+    "method_signature" : "UserController.formatExportData(List<Map<String, Object>>, String)",
+    "class_name" : "UserController",
+    "method_name" : "formatExportData",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L301-L310",
+    "callers" : [ "UserController.exportUsers(String, String)" ],
+    "callees" : [ "UserController.convertToCsv(List<Map<String, Object>>)", "UserController.convertToXml(List<Map<String, Object>>)", "UserController.convertToJson(List<Map<String, Object>>)" ],
+    "call_sites" : [ {
+      "target_method" : "UserController.convertToCsv(List<Map<String, Object>>)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L304:C24",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserController.convertToXml(List<Map<String, Object>>)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L306:C24",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserController.convertToJson(List<Map<String, Object>>)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L308:C24",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserRepository.findByEmail(String)" : {
+    "method_signature" : "UserRepository.findByEmail(String)",
+    "class_name" : "UserRepository",
+    "method_name" : "findByEmail",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L18-L18",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserRepository.countUsersCreatedAfter(LocalDateTime)" : {
+    "method_signature" : "UserRepository.countUsersCreatedAfter(LocalDateTime)",
+    "class_name" : "UserRepository",
+    "method_name" : "countUsersCreatedAfter",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L42-L43",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailService.sendActivationEmail(String)" : {
+    "method_signature" : "EmailService.sendActivationEmail(String)",
+    "class_name" : "EmailService",
+    "method_name" : "sendActivationEmail",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L46-L57",
+    "callers" : [ ],
+    "callees" : [ "EmailMessage.getContent()", "EmailService.sendEmail(String, String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "EmailMessage.getContent()",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L54:C58",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailService.sendEmail(String, String, String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L56:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserRepository.countByActiveTrue()" : {
+    "method_signature" : "UserRepository.countByActiveTrue()",
+    "class_name" : "UserRepository",
+    "method_name" : "countByActiveTrue",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L28-L28",
+    "callers" : [ "UserService.countActiveUsers()" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.convertToCsv(List<Map<String, Object>>)" : {
+    "method_signature" : "UserController.convertToCsv(List<Map<String, Object>>)",
+    "class_name" : "UserController",
+    "method_name" : "convertToCsv",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L312-L322",
+    "callers" : [ "UserController.formatExportData(List<Map<String, Object>>, String)" ],
+    "callees" : [ "User.toString()" ],
+    "call_sites" : [ {
+      "target_method" : "User.toString()",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L321:C16",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserService.updateUser(Long, UserUpdateRequest)" : {
+    "method_signature" : "UserService.updateUser(Long, UserUpdateRequest)",
+    "class_name" : "UserService",
+    "method_name" : "updateUser",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L52-L63",
+    "callers" : [ "UserController.batchUpdateUsers(Map<String, Map<String, String>>, int)", "UserController.deleteUserAdvanced(String, String, boolean)", "UserController.uploadUserAvatar(String, String, String)" ],
+    "callees" : [ "User.getUsername()", "User.setUsername(String)", "UserCreateRequest.getEmail()", "User.setEmail(String)", "User.setUpdatedAt(LocalDateTime)" ],
+    "call_sites" : [ {
+      "target_method" : "User.getUsername()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L54:C17",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.setUsername(String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L55:C17",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.getUsername()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L55:C34",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserCreateRequest.getEmail()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L57:C17",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.setEmail(String)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L58:C17",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserCreateRequest.getEmail()",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L58:C31",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.setUpdatedAt(LocalDateTime)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L60:C13",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserCreateRequest.setPassword(String)" : {
+    "method_signature" : "UserCreateRequest.setPassword(String)",
+    "class_name" : "UserCreateRequest",
+    "method_name" : "setPassword",
+    "code_pos" : "com\\example\\demo\\dto\\UserCreateRequest.java:L51-L53",
+    "callers" : [ "UserService.createUser(UserCreateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.getEmail()" : {
+    "method_signature" : "User.getEmail()",
+    "class_name" : "User",
+    "method_name" : "getEmail",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L81-L83",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.getUserDetails(String, String, boolean)" : {
+    "method_signature" : "UserController.getUserDetails(String, String, boolean)",
+    "class_name" : "UserController",
+    "method_name" : "getUserDetails",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L62-L82",
+    "callers" : [ ],
+    "callees" : [ "UserController.addUserStatistics(Map<String, Object>, String)", "UserController.filterFields(Map<String, Object>, String)" ],
+    "call_sites" : [ {
+      "target_method" : "UserController.addUserStatistics(Map<String, Object>, String)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L74:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "UserController.filterFields(Map<String, Object>, String)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L78:C24",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserRepository.findByActiveTrue()" : {
+    "method_signature" : "UserRepository.findByActiveTrue()",
+    "class_name" : "UserRepository",
+    "method_name" : "findByActiveTrue",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L24-L24",
+    "callers" : [ "UserService.findActiveUsers()" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailService.isEmailServiceAvailable()" : {
+    "method_signature" : "EmailService.isEmailServiceAvailable()",
+    "class_name" : "EmailService",
+    "method_name" : "isEmailServiceAvailable",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L145-L147",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.exportUsers(String, String)" : {
+    "method_signature" : "UserController.exportUsers(String, String)",
+    "class_name" : "UserController",
+    "method_name" : "exportUsers",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L219-L232",
+    "callers" : [ ],
+    "callees" : [ "UserController.formatExportData(List<Map<String, Object>>, String)" ],
+    "call_sites" : [ {
+      "target_method" : "UserController.formatExportData(List<Map<String, Object>>, String)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L228:C29",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "ProductController.featureProduct(Long)" : {
+    "method_signature" : "ProductController.featureProduct(Long)",
+    "class_name" : "ProductController",
+    "method_name" : "featureProduct",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L94-L99",
+    "callers" : [ "ProductController.featureProduct(Long)" ],
+    "callees" : [ "ProductController.featureProduct(Long)" ],
+    "call_sites" : [ {
+      "target_method" : "ProductController.featureProduct(Long)",
+      "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L96:C37",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "ProductController.deleteProduct(Long)" : {
+    "method_signature" : "ProductController.deleteProduct(Long)",
+    "class_name" : "ProductController",
+    "method_name" : "deleteProduct",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L59-L64",
+    "callers" : [ "ProductController.deleteProduct(Long)" ],
+    "callees" : [ "ProductController.deleteProduct(Long)" ],
+    "call_sites" : [ {
+      "target_method" : "ProductController.deleteProduct(Long)",
+      "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L61:C27",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "EmailMessage.getTo()" : {
+    "method_signature" : "EmailMessage.getTo()",
+    "class_name" : "EmailMessage",
+    "method_name" : "getTo",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L159-L159",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailService.logEmailSent(String, String)" : {
+    "method_signature" : "EmailService.logEmailSent(String, String)",
+    "class_name" : "EmailService",
+    "method_name" : "logEmailSent",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L132-L134",
+    "callers" : [ "EmailService.sendEmail(String, String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailMessage.setTo(String)" : {
+    "method_signature" : "EmailMessage.setTo(String)",
+    "class_name" : "EmailMessage",
+    "method_name" : "setTo",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L160-L160",
+    "callers" : [ "EmailService.sendEmail(String, String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserController.getUserStatistics(String, String)" : {
+    "method_signature" : "UserController.getUserStatistics(String, String)",
+    "class_name" : "UserController",
+    "method_name" : "getUserStatistics",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L207-L214",
+    "callers" : [ ],
+    "callees" : [ "UserController.calculateUserStatistics(String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "UserController.calculateUserStatistics(String, String)",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L212:C37",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserController.filterFields(Map<String, Object>, String)" : {
+    "method_signature" : "UserController.filterFields(Map<String, Object>, String)",
+    "class_name" : "UserController",
+    "method_name" : "filterFields",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L240-L251",
+    "callers" : [ "UserController.getUserDetails(String, String, boolean)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "ProductController.getProductById(Long)" : {
+    "method_signature" : "ProductController.getProductById(Long)",
+    "class_name" : "ProductController",
+    "method_name" : "getProductById",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L37-L42",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailService.sendEmail(String, String, String)" : {
+    "method_signature" : "EmailService.sendEmail(String, String, String)",
+    "class_name" : "EmailService",
+    "method_name" : "sendEmail",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L102-L126",
+    "callers" : [ "EmailService.sendWelcomeEmail(String, String)", "EmailService.sendActivationEmail(String)", "EmailService.sendPasswordResetEmail(String, String)", "EmailService.sendOrderConfirmationEmail(String, String)", "EmailService.sendPromotionEmail(String, String)" ],
+    "callees" : [ "EmailService.logEmailError(String, String, Exception)", "EmailMessage.setFrom(String)", "EmailMessage.setTo(String)", "EmailMessage.setSubject(String)", "EmailMessage.setContent(String)", "EmailMessage.setSentAt(LocalDateTime)", "EmailService.logEmailFailed(String, String)", "EmailService.logEmailSent(String, String)" ],
+    "call_sites" : [ {
+      "target_method" : "EmailService.logEmailError(String, String, Exception)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L123:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailMessage.setFrom(String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L106:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailMessage.setTo(String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L107:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailMessage.setSubject(String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L108:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailMessage.setContent(String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L109:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailMessage.setSentAt(LocalDateTime)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L110:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailService.logEmailFailed(String, String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L118:C17",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "EmailService.logEmailSent(String, String)",
+      "code_pos" : "com\\example\\demo\\service\\EmailService.java:L116:C17",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserController.sortResults(List<Map<String, Object>>, String)" : {
+    "method_signature" : "UserController.sortResults(List<Map<String, Object>>, String)",
+    "class_name" : "UserController",
+    "method_name" : "sortResults",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L275-L285",
+    "callers" : [ "UserController.searchUsers(String, String, int, int, String)" ],
+    "callees" : [ "User.toString()" ],
+    "call_sites" : [ {
+      "target_method" : "User.toString()",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L282:C48",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.toString()",
+      "code_pos" : "com\\example\\demo\\controller\\UserController.java:L282:C20",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "UserRepository.findActiveUsersWithLastLogin()" : {
+    "method_signature" : "UserRepository.findActiveUsersWithLastLogin()",
+    "class_name" : "UserRepository",
+    "method_name" : "findActiveUsersWithLastLogin",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L39-L40",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.getId()" : {
+    "method_signature" : "User.getId()",
+    "class_name" : "User",
+    "method_name" : "getId",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L65-L67",
+    "callers" : [ "ProductController.createProduct(ProductCreateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.setUsername(String)" : {
+    "method_signature" : "User.setUsername(String)",
+    "class_name" : "User",
+    "method_name" : "setUsername",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L77-L79",
+    "callers" : [ "UserService.createUser(UserCreateRequest)", "UserService.updateUser(Long, UserUpdateRequest)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.setLastLoginAt(LocalDateTime)" : {
+    "method_signature" : "User.setLastLoginAt(LocalDateTime)",
+    "class_name" : "User",
+    "method_name" : "setLastLoginAt",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L125-L127",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserRepository.findByUsername(String)" : {
+    "method_signature" : "UserRepository.findByUsername(String)",
+    "class_name" : "UserRepository",
+    "method_name" : "findByUsername",
+    "code_pos" : "com\\example\\demo\\repository\\UserRepository.java:L16-L16",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "User.setPassword(String)" : {
+    "method_signature" : "User.setPassword(String)",
+    "class_name" : "User",
+    "method_name" : "setPassword",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L93-L95",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserService.activateUser(Long)" : {
+    "method_signature" : "UserService.activateUser(Long)",
+    "class_name" : "UserService",
+    "method_name" : "activateUser",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L77-L83",
+    "callers" : [ ],
+    "callees" : [ "User.setActive(Boolean)", "User.setUpdatedAt(LocalDateTime)" ],
+    "call_sites" : [ {
+      "target_method" : "User.setActive(Boolean)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L79:C13",
+      "call_type" : "DIRECT"
+    }, {
+      "target_method" : "User.setUpdatedAt(LocalDateTime)",
+      "code_pos" : "com\\example\\demo\\service\\UserService.java:L80:C13",
+      "call_type" : "DIRECT"
+    } ]
+  },
+  "User.setId(Long)" : {
+    "method_signature" : "User.setId(Long)",
+    "class_name" : "User",
+    "method_name" : "setId",
+    "code_pos" : "com\\example\\demo\\entity\\User.java:L69-L71",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserService.findAllUsers()" : {
+    "method_signature" : "UserService.findAllUsers()",
+    "class_name" : "UserService",
+    "method_name" : "findAllUsers",
+    "code_pos" : "com\\example\\demo\\service\\UserService.java:L28-L30",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailMessage.getSentAt()" : {
+    "method_signature" : "EmailMessage.getSentAt()",
+    "class_name" : "EmailMessage",
+    "method_name" : "getSentAt",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L165-L165",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "UserCreateRequest.setUsername(String)" : {
+    "method_signature" : "UserCreateRequest.setUsername(String)",
+    "class_name" : "UserCreateRequest",
+    "method_name" : "setUsername",
+    "code_pos" : "com\\example\\demo\\dto\\UserCreateRequest.java:L35-L37",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "EmailMessage.getContent()" : {
+    "method_signature" : "EmailMessage.getContent()",
+    "class_name" : "EmailMessage",
+    "method_name" : "getContent",
+    "code_pos" : "com\\example\\demo\\service\\EmailService.java:L163-L163",
+    "callers" : [ "EmailService.sendWelcomeEmail(String, String)", "EmailService.sendActivationEmail(String)", "EmailService.sendPasswordResetEmail(String, String)", "EmailService.sendOrderConfirmationEmail(String, String)", "EmailService.sendPromotionEmail(String, String)" ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  },
+  "ProductController.getAllProducts(Pageable)" : {
+    "method_signature" : "ProductController.getAllProducts(Pageable)",
+    "class_name" : "ProductController",
+    "method_name" : "getAllProducts",
+    "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L31-L35",
+    "callers" : [ ],
+    "callees" : [ ],
+    "call_sites" : [ ]
+  }
+}

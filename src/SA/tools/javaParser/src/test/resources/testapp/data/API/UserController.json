@@ -1,0 +1,226 @@
+{
+  "controller_name" : "UserController",
+  "file_path" : "com\\example\\demo\\controller\\UserController.java",
+  "apis" : [ {
+    "controller_name" : "UserController",
+    "method_name" : "createUserAdvanced",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L31-L57",
+    "req" : {
+      "method" : "GET",
+      "path" : "/createUserAdvanced",
+      "query_params" : { },
+      "body" : { }
+    },
+    "references" : [ "sym_met_017_101a" ]
+  }, {
+    "controller_name" : "UserController",
+    "method_name" : "getUserDetails",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L62-L82",
+    "req" : {
+      "method" : "GET",
+      "path" : "/getUserDetails",
+      "query_params" : { },
+      "body" : { }
+    },
+    "references" : [ "sym_met_018_c715" ]
+  }, {
+    "controller_name" : "UserController",
+    "method_name" : "batchUpdateUsers",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L87-L117",
+    "req" : {
+      "method" : "GET",
+      "path" : "/batchUpdateUsers",
+      "query_params" : { },
+      "body" : { }
+    },
+    "references" : [ "sym_cla_019_982" ]
+  }, {
+    "controller_name" : "UserController",
+    "method_name" : "searchUsers",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L122-L139",
+    "req" : {
+      "method" : "GET",
+      "path" : "/searchUsers",
+      "query_params" : { },
+      "body" : { }
+    },
+    "references" : [ "sym_met_018_c715", "sym_met_020_bb73", "sym_met_021_9ccd" ]
+  }, {
+    "controller_name" : "UserController",
+    "method_name" : "deleteUserAdvanced",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L144-L173",
+    "req" : {
+      "method" : "GET",
+      "path" : "/deleteUserAdvanced",
+      "query_params" : { },
+      "body" : { }
+    },
+    "references" : [ "sym_met_018_c715" ]
+  }, {
+    "controller_name" : "UserController",
+    "method_name" : "uploadUserAvatar",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L178-L202",
+    "req" : {
+      "method" : "GET",
+      "path" : "/uploadUserAvatar",
+      "query_params" : { },
+      "body" : { }
+    },
+    "references" : [ ]
+  }, {
+    "controller_name" : "UserController",
+    "method_name" : "getUserStatistics",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L207-L214",
+    "req" : {
+      "method" : "GET",
+      "path" : "/getUserStatistics",
+      "query_params" : { },
+      "body" : { }
+    },
+    "references" : [ "sym_cla_019_982" ]
+  }, {
+    "controller_name" : "UserController",
+    "method_name" : "exportUsers",
+    "code_pos" : "com\\example\\demo\\controller\\UserController.java:L219-L232",
+    "req" : {
+      "method" : "GET",
+      "path" : "/exportUsers",
+      "query_params" : { },
+      "body" : { }
+    },
+    "references" : [ ]
+  } ],
+  "symbol_table" : {
+    "sym_cla_019_982" : {
+      "symbol_id" : "sym_cla_019_982",
+      "symbol_name" : "DatabaseService",
+      "symbol_type" : "CLASS",
+      "data_type" : "DatabaseService",
+      "scope" : "EXTERNAL",
+      "definition" : null,
+      "usage_contexts" : [ {
+        "api_method" : "searchUsers",
+        "usage_type" : "INSTANTIATION",
+        "usage_line" : 131,
+        "usage_code" : "new DatabaseService()"
+      }, {
+        "api_method" : "exportUsers",
+        "usage_type" : "INSTANTIATION",
+        "usage_line" : 225,
+        "usage_code" : "new DatabaseService()"
+      } ]
+    },
+    "sym_fie_015_8128" : {
+      "symbol_id" : "sym_fie_015_8128",
+      "symbol_name" : "emailService",
+      "symbol_type" : "FIELD",
+      "data_type" : "EmailService",
+      "scope" : "CLASS_LEVEL",
+      "definition" : {
+        "file_path" : "com\\example\\demo\\controller\\UserController.java",
+        "line_number" : 21,
+        "code_snippet" : "private EmailService emailService;"
+      },
+      "usage_contexts" : [ ]
+    },
+    "sym_fie_014_3497" : {
+      "symbol_id" : "sym_fie_014_3497",
+      "symbol_name" : "userService",
+      "symbol_type" : "FIELD",
+      "data_type" : "UserService",
+      "scope" : "CLASS_LEVEL",
+      "definition" : {
+        "file_path" : "com\\example\\demo\\controller\\UserController.java",
+        "line_number" : 20,
+        "code_snippet" : "private UserService userService;"
+      },
+      "usage_contexts" : [ ]
+    },
+    "sym_met_016_8cc2" : {
+      "symbol_id" : "sym_met_016_8cc2",
+      "symbol_name" : "createUser",
+      "symbol_type" : "METHOD",
+      "data_type" : "Unknown",
+      "scope" : "EXTERNAL",
+      "definition" : null,
+      "usage_contexts" : [ {
+        "api_method" : "createUserAdvanced",
+        "usage_type" : "METHOD_CALL",
+        "usage_line" : 40,
+        "usage_code" : "userService.createUser(userData.get(\"username\"), userData.get(\"email\"), role)"
+      } ]
+    },
+    "sym_met_017_101a" : {
+      "symbol_id" : "sym_met_017_101a",
+      "symbol_name" : "getUserInfo",
+      "symbol_type" : "METHOD",
+      "data_type" : "Unknown",
+      "scope" : "EXTERNAL",
+      "definition" : null,
+      "usage_contexts" : [ {
+        "api_method" : "getUserDetails",
+        "usage_type" : "METHOD_CALL",
+        "usage_line" : 68,
+        "usage_code" : "userService.getUserInfo(userId)"
+      } ]
+    },
+    "sym_met_018_c715" : {
+      "symbol_id" : "sym_met_018_c715",
+      "symbol_name" : "updateUser",
+      "symbol_type" : "METHOD",
+      "data_type" : "Unknown",
+      "scope" : "EXTERNAL",
+      "definition" : null,
+      "usage_contexts" : [ {
+        "api_method" : "batchUpdateUsers",
+        "usage_type" : "METHOD_CALL",
+        "usage_line" : 103,
+        "usage_code" : "userService.updateUser(userId, updates)"
+      }, {
+        "api_method" : "deleteUserAdvanced",
+        "usage_type" : "METHOD_CALL",
+        "usage_line" : 157,
+        "usage_code" : "userService.updateUser(userId, updates)"
+      }, {
+        "api_method" : "uploadUserAvatar",
+        "usage_type" : "METHOD_CALL",
+        "usage_line" : 191,
+        "usage_code" : "userService.updateUser(userId, updates)"
+      } ]
+    },
+    "sym_met_020_bb73" : {
+      "symbol_id" : "sym_met_020_bb73",
+      "symbol_name" : "deleteUser",
+      "symbol_type" : "METHOD",
+      "data_type" : "Unknown",
+      "scope" : "EXTERNAL",
+      "definition" : null,
+      "usage_contexts" : [ {
+        "api_method" : "deleteUserAdvanced",
+        "usage_type" : "METHOD_CALL",
+        "usage_line" : 152,
+        "usage_code" : "userService.deleteUser(userId)"
+      } ]
+    },
+    "sym_met_021_9ccd" : {
+      "symbol_id" : "sym_met_021_9ccd",
+      "symbol_name" : "sendNotification",
+      "symbol_type" : "METHOD",
+      "data_type" : "Unknown",
+      "scope" : "EXTERNAL",
+      "definition" : null,
+      "usage_contexts" : [ {
+        "api_method" : "deleteUserAdvanced",
+        "usage_type" : "METHOD_CALL",
+        "usage_line" : 165,
+        "usage_code" : "emailService.sendNotification(userId, \"Your account has been deleted\")"
+      } ]
+    }
+  },
+  "metadata" : {
+    "total_apis" : 8,
+    "total_symbols" : 8,
+    "analysis_timestamp" : "2025-06-29T18:35:16.606436600Z",
+    "unresolved_symbols" : [ ]
+  }
+}
