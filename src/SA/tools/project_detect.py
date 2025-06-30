@@ -44,8 +44,8 @@ SIGNATURES = {
     '.ipynb': ('Python', 'Jupyter'),
 
     # Docker / DevOps
-    'Dockerfile': ('DevOps', 'Docker'),
-    'docker-compose.yml': ('DevOps', 'Docker Compose'),
+    # 'Dockerfile': ('DevOps', 'Docker'),
+    # 'docker-compose.yml': ('DevOps', 'Docker Compose'),
     '.github': ('DevOps', 'GitHub Actions'),
     '.gitlab-ci.yml': ('DevOps', 'GitLab CI'),
 }

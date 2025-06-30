@@ -13,7 +13,7 @@ JAVA_PARSER_PATH = Path(__file__).parent / JAVA_PARSER_PATH
 
 def _run_java_parser(cmd: List[str]) -> dict:
     """运行 java parser 命令的通用方法"""
-    logger.info(f"Running command: {' '.join(cmd)}")
+    # logger.info(f"Running command: {' '.join(cmd)}")
     result = subprocess.run(cmd, capture_output=True, text=True)
     
     if result.returncode != 0:

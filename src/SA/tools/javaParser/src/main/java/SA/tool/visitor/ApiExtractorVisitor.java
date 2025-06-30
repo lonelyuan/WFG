@@ -7,13 +7,10 @@ import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import SA.tool.model.ApiInfo;
 import SA.tool.model.HttpRequest;
+import com.github.javaparser.resolution.UnsolvedSymbolException;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -51,28 +48,23 @@ public class ApiExtractorVisitor extends VoidVisitorAdapter<List<ApiInfo>> {
                 Optional<AnnotationExpr> annotationOpt = n.getAnnotationByName(annotationName);
                 if (annotationOpt.isPresent()) {
                     ApiInfo apiInfo = new ApiInfo();
-                    
+
                     // Set basic info
                     apiInfo.setControllerName(n.findAncestor(ClassOrInterfaceDeclaration.class).map(ClassOrInterfaceDeclaration::getNameAsString).orElse(""));
                     apiInfo.setMethodName(n.getNameAsString());
-                    
-                    // Set code position with relative path, including Javadoc and annotations
+
+                    // Set code position
                     int endLine = n.getEnd().map(p -> p.line).orElse(-1);
-                    int startLine = n.getBegin().map(p -> p.line).orElse(endLine); // Fallback to method signature start
-                    
-                    // A method's Javadoc comment is the earliest part of its declaration block.
+                    int startLine = n.getBegin().map(p -> p.line).orElse(endLine);
                     if (n.getJavadocComment().isPresent()) {
-                        startLine = n.getJavadocComment().get().getBegin().map(p -> p.line).orElse(startLine) - 1;
+                        startLine = n.getJavadocComment().get().getBegin().map(p -> p.line).orElse(startLine);
                     } else if (!n.getAnnotations().isEmpty()) {
-                        // If no Javadoc, the first annotation is the earliest part.
                         int firstAnnotationLine = n.getAnnotations().stream()
                                 .mapToInt(a -> a.getBegin().map(p -> p.line).orElse(Integer.MAX_VALUE))
                                 .min()
                                 .orElse(startLine);
                         startLine = Math.min(startLine, firstAnnotationLine);
-                    } 
-                    // TODO 除了javadoc，普通的//注释能否也包含在内
-
+                    }
                     final String relativePath = n.findCompilationUnit().flatMap(CompilationUnit::getStorage)
                             .map(s -> {
                                 String rootAbs = rootPath.toAbsolutePath().toString();
@@ -84,7 +76,6 @@ public class ApiExtractorVisitor extends VoidVisitorAdapter<List<ApiInfo>> {
                                     }
                                     return result;
                                 }
-                                // Fallback to absolute path if not inside root
                                 return fileAbs;
                             })
                             .orElse("Unknown");
@@ -95,10 +86,49 @@ public class ApiExtractorVisitor extends VoidVisitorAdapter<List<ApiInfo>> {
                     List<String> methodLevelPaths = extractPathsFromAnnotation(annotationOpt);
                     httpRequest.setPath(combinePaths(classLevelPaths, methodLevelPaths));
                     httpRequest.setMethod(getHttpMethod(annotationOpt.get()));
+                    // (You would add logic here to parse @RequestBody, @RequestParam etc. and set it in httpRequest)
                     apiInfo.setReq(httpRequest);
 
+                    // --- NEW: Resolve internal symbols ---
+                    Set<String> references = new HashSet<>();
+
+                    // 1. Resolve symbols within the method body (method calls and object creations)
+                    n.getBody().ifPresent(body -> {
+                        body.findAll(MethodCallExpr.class).forEach(call -> {
+                            try {
+                                references.add(call.resolve().getQualifiedSignature());
+                            } catch (UnsolvedSymbolException | UnsupportedOperationException e) {
+                                // Ignore unresolved symbols, common for JDK or external libs without full classpath
+                            }
+                        });
+                        body.findAll(ObjectCreationExpr.class).forEach(creation -> {
+                            try {
+                                references.add(creation.resolve().getQualifiedSignature());
+                            } catch (UnsolvedSymbolException | UnsupportedOperationException e) {
+                                // Ignore unresolved symbols
+                            }
+                        });
+                    });
+
+                    // 2. Resolve class-level field types
+                    n.findAncestor(ClassOrInterfaceDeclaration.class).ifPresent(cls -> {
+                        cls.getFields().forEach(field -> {
+                            field.getVariables().forEach(variable -> {
+                                try {
+                                    // Resolve the type of the field and get its fully qualified name
+                                    references.add(variable.getType().resolve().asReferenceType().getQualifiedName());
+                                } catch (UnsolvedSymbolException | UnsupportedOperationException | ClassCastException e) {
+                                    // Ignore unresolved types or primitive types that cause ClassCastException
+                                }
+                            });
+                        });
+                    });
+
+                    apiInfo.setReferences(new ArrayList<>(references));
+                    // --- END NEW ---
+
                     arg.add(apiInfo);
-                    break; 
+                    break;
                 }
             }
         }
@@ -110,7 +140,6 @@ public class ApiExtractorVisitor extends VoidVisitorAdapter<List<ApiInfo>> {
         }
         AnnotationExpr annotation = annotationOpt.get();
 
-        // Handles @RequestMapping("/path") or @RequestMapping(value = "/path")
         if (annotation.isStringLiteralExpr()) {
             return new ArrayList<>(Collections.singletonList(annotation.asStringLiteralExpr().asString()));
         }
@@ -159,7 +188,7 @@ public class ApiExtractorVisitor extends VoidVisitorAdapter<List<ApiInfo>> {
     private String combinePaths(List<String> classPaths, List<String> methodPaths) {
         String classPath = classPaths.isEmpty() ? "" : classPaths.get(0);
         String methodPath = methodPaths.isEmpty() ? "" : methodPaths.get(0);
-        
+
         String combined = Stream.of(classPath, methodPath)
                 .map(p -> p.startsWith("/") ? p : "/" + p)
                 .map(p -> p.endsWith("/") ? p.substring(0, p.length() - 1) : p)

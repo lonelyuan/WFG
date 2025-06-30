@@ -80,26 +80,33 @@ class ContextExtentionNode(Node):
 
         # --- 正确率统计 ---
         success_count = 0
+        parse_failed_count = 0
         total_count = len(analysis_results)
         if total_count > 0:
             for result in analysis_results:
+                json_match = re.search(r'\{.*\}', result.analysis, re.DOTALL)
+                if not json_match:
+                    parse_failed_count += 1
+                    self.logger.warning(f"Could not find JSON block in LLM output: {result.analysis}")
+                    continue
+                
                 try:
-                    # Clean the response string from markdown fences
-                    clean_res = re.sub(r"```json\n?|```", "", result.analysis).strip()
-                    llm_output = json.loads(clean_res)
+                    llm_output = json.loads(json_match.group(0))
                     if llm_output.get("status") == "success":
                         success_count += 1
-                except (json.JSONDecodeError, AttributeError):
-                    self.logger.warning(f"Could not parse LLM output for statistics: {result.analysis}")
+                except json.JSONDecodeError:
+                    parse_failed_count += 1
+                    self.logger.warning(f"Found JSON-like block, but failed to parse: {json_match.group(0)}")
             
-            success_rate = (success_count / total_count) * 100
+            success_rate = (success_count / total_count) * 100 if total_count > 0 else 0
+            parse_failure_rate = (parse_failed_count / total_count) * 100 if total_count > 0 else 0
             self.logger.info(f"--- Analysis Statistics ---")
             self.logger.info(f"Total APIs analyzed: {total_count}")
-            self.logger.info(f"Successful analyses: {success_count}")
-            self.logger.info(f"Success Rate: {success_rate:.2f}%")
+            self.logger.info(f"Successful analyses (status='success'): {success_count} ({success_rate:.2f}%)")
+            self.logger.info(f"Failed to parse: {parse_failed_count} ({parse_failure_rate:.2f}%)")
             self.logger.info(f"--------------------------")
                 
-        self.logger.info(f"API分析完成，成功分析 {len(analysis_results)} 个API")
+        self.logger.info(f"API分析完成，处理了 {len(analysis_results)} 个API")
         return analysis_results
 
     def post(self, shared, prep_res, exec_res) -> List[AnalysisResult]:
