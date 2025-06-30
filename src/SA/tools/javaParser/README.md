@@ -11,6 +11,23 @@
 java -jar parser.jar <project-path> API [-o <output-dir>]
 ```
 
+输出格式：
+```json
+{ "controller_name" : "AdminController",
+  "file_path" : "src\\main\\java\\ltd\\newbee\\mall\\controller\\admin\\AdminController.java",
+  "apis" : [ {
+    "controller_name" : "AdminController",
+    "method_name" : "login",
+    "code_pos" : "src\\main\\java\\ltd\\newbee\\mall\\controller\\admin\\AdminController.java:L37-L40",
+    "req" : {
+      "method" : "GET",
+      "path" : "/login",
+      "query_params" : { },
+      "body" : { }
+    },
+    "references" : ["cn.hutool.captcha.ShearCaptcha"（第三方库）,"ltd.newbee.mall.entity.AdminUser"（应用内其他包）,"ltd.newbee.mall.controller.admin.AdminController.adminUserService"（类内部成员）]
+```
+
 ### 2. 引用查找 (Find Reference)
 输入特定符号，查找代码中所有引用位置和上下文信息。
 

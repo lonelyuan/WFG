@@ -62,7 +62,7 @@ public class ApiInfo {
         this.references = references;
     }
     
-    public void addReference(String symbolId) {
-        this.references.add(symbolId);
+    public void addReference(String reference) {
+        this.references.add(reference);
     }
 } 

@@ -30,6 +30,7 @@ class APIInfo:
     method_name: str 
     code_pos: str # /path/to/file.java:L1-L3
     req: HTTPRequest
+    references: List[str]
 
 
 

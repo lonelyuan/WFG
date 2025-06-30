@@ -7,297 +7,119 @@
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L31-L35",
     "req" : {
       "method" : "GET",
-      "path" : "/getAllProducts",
+      "path" : null,
       "query_params" : { },
       "body" : { }
     },
-    "references" : [ "sym_met_004_87ef" ]
+    "references" : [ "com.example.demo.service.ProductService.findAllProducts" ]
   }, {
     "controller_name" : "ProductController",
     "method_name" : "getProductById",
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L37-L42",
     "req" : {
       "method" : "GET",
-      "path" : "/getProductById",
+      "path" : "/{id}",
       "query_params" : { },
       "body" : { }
     },
-    "references" : [ "sym_met_005_72da", "sym_met_006_b1a0" ]
+    "references" : [ "com.example.demo.service.ProductService.findProductById" ]
   }, {
     "controller_name" : "ProductController",
     "method_name" : "createProduct",
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L44-L49",
     "req" : {
-      "method" : "GET",
-      "path" : "/createProduct",
+      "method" : "POST",
+      "path" : null,
       "query_params" : { },
-      "body" : { }
+      "body" : {
+        "type" : "com.example.demo.dto.ProductCreateRequest"
+      }
     },
-    "references" : [ "sym_met_007_62ed" ]
+    "references" : [ "com.example.demo.service.ProductService.createProduct", "com.example.demo.service.InventoryService.initializeStock" ]
   }, {
     "controller_name" : "ProductController",
     "method_name" : "updateProduct",
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L51-L57",
     "req" : {
-      "method" : "GET",
-      "path" : "/updateProduct",
+      "method" : "PUT",
+      "path" : "/{id}",
       "query_params" : { },
-      "body" : { }
+      "body" : {
+        "type" : "com.example.demo.dto.ProductUpdateRequest"
+      }
     },
-    "references" : [ "sym_met_008_18cb" ]
+    "references" : [ "com.example.demo.service.ProductService.updateProduct" ]
   }, {
     "controller_name" : "ProductController",
     "method_name" : "deleteProduct",
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L59-L64",
     "req" : {
-      "method" : "GET",
-      "path" : "/deleteProduct",
+      "method" : "DELETE",
+      "path" : "/{id}",
       "query_params" : { },
       "body" : { }
     },
-    "references" : [ "sym_met_009_2999" ]
+    "references" : [ "com.example.demo.service.ProductService.deleteProduct" ]
   }, {
     "controller_name" : "ProductController",
     "method_name" : "getProductsByCategory",
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L66-L70",
     "req" : {
       "method" : "GET",
-      "path" : "/getProductsByCategory",
+      "path" : "/category/{category}",
       "query_params" : { },
       "body" : { }
     },
-    "references" : [ "sym_met_010_f33" ]
+    "references" : [ "com.example.demo.service.ProductService.findProductsByCategory" ]
   }, {
     "controller_name" : "ProductController",
     "method_name" : "searchProducts",
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L72-L78",
     "req" : {
       "method" : "GET",
-      "path" : "/searchProducts",
-      "query_params" : { },
+      "path" : "/search",
+      "query_params" : {
+        "minPrice" : "BigDecimal",
+        "maxPrice" : "BigDecimal",
+        "keyword" : "String"
+      },
       "body" : { }
     },
-    "references" : [ "sym_met_011_7b56" ]
+    "references" : [ "com.example.demo.service.ProductService.searchProducts" ]
   }, {
     "controller_name" : "ProductController",
     "method_name" : "applyDiscount",
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L80-L86",
     "req" : {
-      "method" : "GET",
-      "path" : "/applyDiscount",
-      "query_params" : { },
+      "method" : "POST",
+      "path" : "/{id}/discount",
+      "query_params" : {
+        "discountPercent" : "BigDecimal"
+      },
       "body" : { }
     },
-    "references" : [ "sym_met_012_6a12" ]
+    "references" : [ "com.example.demo.service.ProductService.applyDiscount" ]
   }, {
     "controller_name" : "ProductController",
     "method_name" : "getFeaturedProducts",
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L88-L92",
     "req" : {
       "method" : "GET",
-      "path" : "/getFeaturedProducts",
+      "path" : "/featured",
       "query_params" : { },
       "body" : { }
     },
-    "references" : [ "sym_met_013_2ca0" ]
+    "references" : [ "com.example.demo.service.ProductService.findFeaturedProducts" ]
   }, {
     "controller_name" : "ProductController",
     "method_name" : "featureProduct",
     "code_pos" : "com\\example\\demo\\controller\\ProductController.java:L94-L99",
     "req" : {
-      "method" : "GET",
-      "path" : "/featureProduct",
+      "method" : "POST",
+      "path" : "/{id}/feature",
       "query_params" : { },
       "body" : { }
     },
-    "references" : [ ]
-  } ],
-  "symbol_table" : {
-    "sym_met_005_72da" : {
-      "symbol_id" : "sym_met_005_72da",
-      "symbol_name" : "createProduct",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "createProduct",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 46,
-        "usage_code" : "productService.createProduct(request)"
-      } ]
-    },
-    "sym_met_009_2999" : {
-      "symbol_id" : "sym_met_009_2999",
-      "symbol_name" : "findProductsByCategory",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "getProductsByCategory",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 68,
-        "usage_code" : "productService.findProductsByCategory(category)"
-      } ]
-    },
-    "sym_met_011_7b56" : {
-      "symbol_id" : "sym_met_011_7b56",
-      "symbol_name" : "applyDiscount",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "applyDiscount",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 83,
-        "usage_code" : "productService.applyDiscount(id, discountPercent)"
-      } ]
-    },
-    "sym_met_006_b1a0" : {
-      "symbol_id" : "sym_met_006_b1a0",
-      "symbol_name" : "initializeStock",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "createProduct",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 47,
-        "usage_code" : "inventoryService.initializeStock(createdProduct.getId(), request.getInitialStock())"
-      } ]
-    },
-    "sym_met_004_87ef" : {
-      "symbol_id" : "sym_met_004_87ef",
-      "symbol_name" : "findProductById",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "getProductById",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 39,
-        "usage_code" : "productService.findProductById(id)"
-      } ]
-    },
-    "sym_met_012_6a12" : {
-      "symbol_id" : "sym_met_012_6a12",
-      "symbol_name" : "findFeaturedProducts",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "getFeaturedProducts",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 90,
-        "usage_code" : "productService.findFeaturedProducts()"
-      } ]
-    },
-    "sym_met_013_2ca0" : {
-      "symbol_id" : "sym_met_013_2ca0",
-      "symbol_name" : "featureProduct",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "featureProduct",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 96,
-        "usage_code" : "productService.featureProduct(id)"
-      } ]
-    },
-    "sym_met_008_18cb" : {
-      "symbol_id" : "sym_met_008_18cb",
-      "symbol_name" : "deleteProduct",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "deleteProduct",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 61,
-        "usage_code" : "productService.deleteProduct(id)"
-      } ]
-    },
-    "sym_fie_002_592a" : {
-      "symbol_id" : "sym_fie_002_592a",
-      "symbol_name" : "inventoryService",
-      "symbol_type" : "FIELD",
-      "data_type" : "InventoryService",
-      "scope" : "CLASS_LEVEL",
-      "definition" : {
-        "file_path" : "com\\example\\demo\\controller\\ProductController.java",
-        "line_number" : 29,
-        "code_snippet" : "@Autowired\r\nprivate InventoryService inventoryService;"
-      },
-      "usage_contexts" : [ ]
-    },
-    "sym_met_003_6eb3" : {
-      "symbol_id" : "sym_met_003_6eb3",
-      "symbol_name" : "findAllProducts",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "getAllProducts",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 33,
-        "usage_code" : "productService.findAllProducts(pageable)"
-      } ]
-    },
-    "sym_fie_001_1277" : {
-      "symbol_id" : "sym_fie_001_1277",
-      "symbol_name" : "productService",
-      "symbol_type" : "FIELD",
-      "data_type" : "ProductService",
-      "scope" : "CLASS_LEVEL",
-      "definition" : {
-        "file_path" : "com\\example\\demo\\controller\\ProductController.java",
-        "line_number" : 26,
-        "code_snippet" : "@Autowired\r\nprivate ProductService productService;"
-      },
-      "usage_contexts" : [ ]
-    },
-    "sym_met_007_62ed" : {
-      "symbol_id" : "sym_met_007_62ed",
-      "symbol_name" : "updateProduct",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "updateProduct",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 54,
-        "usage_code" : "productService.updateProduct(id, request)"
-      } ]
-    },
-    "sym_met_010_f33" : {
-      "symbol_id" : "sym_met_010_f33",
-      "symbol_name" : "searchProducts",
-      "symbol_type" : "METHOD",
-      "data_type" : "Unknown",
-      "scope" : "EXTERNAL",
-      "definition" : null,
-      "usage_contexts" : [ {
-        "api_method" : "searchProducts",
-        "usage_type" : "METHOD_CALL",
-        "usage_line" : 76,
-        "usage_code" : "productService.searchProducts(keyword, minPrice, maxPrice)"
-      } ]
-    }
-  },
-  "metadata" : {
-    "total_apis" : 10,
-    "total_symbols" : 13,
-    "analysis_timestamp" : "2025-06-30T11:26:23.922172800Z",
-    "unresolved_symbols" : [ ]
-  }
+    "references" : [ "com.example.demo.service.ProductService.featureProduct" ]
+  } ]
 }

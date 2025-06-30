@@ -82,40 +82,28 @@ public class JavaParserIntegrationTest {
             String userControllerContent = Files.readString(userControllerFile);
             System.out.println(userControllerContent);
             
-            // 验证增强分析结果的结构
+            // 验证重构后的分析结果结构
             Map<String, Object> userControllerAnalysis = objectMapper.readValue(userControllerContent, 
                 new TypeReference<Map<String, Object>>() {});
             
             assertTrue(userControllerAnalysis.containsKey("controller_name"), "应包含 controller_name");
             assertTrue(userControllerAnalysis.containsKey("apis"), "应包含 apis");
-            assertTrue(userControllerAnalysis.containsKey("symbol_table"), "应包含 symbol_table");
-            assertTrue(userControllerAnalysis.containsKey("metadata"), "应包含 metadata");
+            assertFalse(userControllerAnalysis.containsKey("symbol_table"), "不应再包含 symbol_table");
+            assertFalse(userControllerAnalysis.containsKey("metadata"), "不应再包含 metadata");
             
             // 验证APIs包含references字段
             List<Map<String, Object>> apis = (List<Map<String, Object>>) userControllerAnalysis.get("apis");
             if (!apis.isEmpty()) {
                 Map<String, Object> firstApi = apis.get(0);
-                assertTrue(firstApi.containsKey("references"), "API应包含 references 字段");
                 assertTrue(firstApi.containsKey("controller_name"), "API应包含 controller_name");
                 assertTrue(firstApi.containsKey("method_name"), "API应包含 method_name");
                 assertTrue(firstApi.containsKey("code_pos"), "API应包含 code_pos");
+                assertTrue(firstApi.containsKey("references"), "API应包含 references 字段");
+                Object refs = firstApi.get("references");
+                assertTrue(refs instanceof List, "references 应该是一个列表");
+
                 System.out.println("✓ API包含符号引用: " + firstApi.get("references"));
                 System.out.println("✓ 成功提取 " + apis.size() + " 个 API");
-            }
-            
-            // 验证符号表
-            Map<String, Object> symbolTable = (Map<String, Object>) userControllerAnalysis.get("symbol_table");
-            System.out.println("✓ 符号表包含 " + symbolTable.size() + " 个符号");
-            
-            if (!symbolTable.isEmpty()) {
-                // 展示第一个符号的详细信息
-                String firstSymbolId = symbolTable.keySet().iterator().next();
-                Map<String, Object> firstSymbol = (Map<String, Object>) symbolTable.get(firstSymbolId);
-                System.out.println("符号示例 " + firstSymbolId + ":");
-                System.out.println("  - 符号名: " + firstSymbol.get("symbol_name"));
-                System.out.println("  - 符号类型: " + firstSymbol.get("symbol_type"));
-                System.out.println("  - 数据类型: " + firstSymbol.get("data_type"));
-                System.out.println("  - 作用域: " + firstSymbol.get("scope"));
             }
         }
         
