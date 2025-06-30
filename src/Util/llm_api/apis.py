@@ -1,6 +1,10 @@
 from openai import OpenAI
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from Util.logger import get_logger
+import time
+from pathlib import Path
+import os
+
 logger = get_logger("Util")
 
 DEFAULT_MODEL = "qwen"
@@ -53,8 +57,19 @@ def call_llm(message: str,
              model: str = DEFAULT_MODEL,
              temperature: float = DEFAULT_TEMPERATURE,
              system_role: str = DEFAULT_SYSTEM_ROLE,
+             log_dir: Optional[Path] = None,
              measure_cost: bool = False) -> str:
     logger.info(f"Calling LLM: {model}")
+
+    if log_dir:
+        os.makedirs(log_dir, exist_ok=True)
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        log_file_path = log_dir / f"{timestamp}_{model}.log"
+        
+        with open(log_file_path, "w", encoding="utf-8") as f:
+            f.write("--- PROMPT ---\n")
+            f.write(f"User: {message}\n\n")
+
     try:
         if "qwen" in model.lower():
             output = call_qwen(message, temperature, system_role)
@@ -66,6 +81,12 @@ def call_llm(message: str,
             input_tokens = len(system_role.split()) + len(message.split())
             output_tokens = len(output.split())
             logger.info(f"Token consumption - input: {input_tokens}, output: {output_tokens}")
+        
+        if log_dir:
+            with open(log_file_path, "a", encoding="utf-8") as f:
+                f.write("--- RESPONSE ---\n")
+                f.write(output)
+        
         return output
         
     except Exception as e:

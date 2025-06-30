@@ -16,10 +16,16 @@ class PromptCrafter:
 
          
     def craft_prompt(self, params: dict) -> str:
-        if isinstance(self.templates, list): # 任意json字符串化，列表合并为字符串
-            template = "\n".join(self.templates)
-        else:
-            template = json.dumps(self.templates, ensure_ascii=False)
+        if "user_prompt" in self.templates and isinstance(self.templates["user_prompt"], list):
+            template = "\n".join(self.templates["user_prompt"])
+        elif "user_prompt" in self.templates:
+             template = json.dumps(self.templates["user_prompt"], ensure_ascii=False)
+        else: # Fallback for old format
+            if isinstance(self.templates, list):
+                template = "\n".join(self.templates)
+            else:
+                template = json.dumps(self.templates, ensure_ascii=False)
+
         for key, value in params.items():
             template = template.replace(f"<{key}>", str(value))
         return template
